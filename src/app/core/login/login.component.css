@@ -1,0 +1,28 @@
+.btn_login {
+    background-color: #FF9238;
+}
+
+.loginBox {
+    padding: 19px 20px;
+   
+    font-family: 'Saira Extra Condensed', sans-serif;
+}
+.logh3{
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #FF9238;
+}
+.linkSignUp{
+    color: #39A7FF;
+    font-weight: 600;
+}
+
+.log_imgBox{
+    border: 0.4px solid  grey;
+    padding-top: 35px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+

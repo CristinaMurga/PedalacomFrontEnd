@@ -1,0 +1,26 @@
+
+
+.signUpBox {
+    border: 0.4px solid  grey;
+    padding: 40px;
+   
+    font-family: 'Saira Extra Condensed', sans-serif;
+}
+.signUph3{
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #FF9238;
+}
+.linkSignUp{
+    color: #39A7FF;
+    font-weight: 600;
+}
+
+.btn_signUp {
+   border-radius: 0%;
+    background-color: #FF9238;
+}
+
+
+

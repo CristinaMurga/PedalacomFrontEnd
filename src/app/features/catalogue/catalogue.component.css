@@ -1,0 +1,37 @@
+.categoryParentnav {
+    background-color: #39A7FF;
+    font-family: 'Vina Sans', sans-serif;
+    box-shadow: 1px 1px 2px black;
+    padding: 0;
+  
+}
+.categoryParentbtn {
+   
+    font-size: 21px;
+    color: black;
+    background-color: transparent;
+    border: none;
+}
+.categoryParentbtn:hover {
+    text-shadow: 0.2px 0.2px 0.05px black;
+    color: black;
+}
+
+a{
+    text-decoration: none;
+}
+
+.categoryChidBox{
+    
+    border: 0.4px solid  grey;
+    font-family: 'Saira Extra Condensed', sans-serif;
+}
+
+
+.categoryChildbtn{
+    padding: 15px 0px;
+    font-size: 18px;
+    color: #FF9238;
+    background-color: transparent;
+    border: none;
+}

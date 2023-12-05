@@ -1,0 +1,16 @@
+
+<div class=" py-2 container-fluid d-flex justify-content-around flex-wrap categoryParentnav ">
+    <button class="categoryParentbtn" *ngFor="let categoryParent of categoryParentsList" 
+    (click)="getCategoryChilds(categoryParent.productCategoryID)" >
+    {{categoryParent.name}} - {{categoryParent.productCategoryID}}
+  </button>
+</div>
+<div class=" container categoryChidBox" *ngIf="true">
+  <div class="row"> 
+    <div class="col-md-3 " *ngFor="let categoryChild of categoryChildList">
+      <button class="categoryChildbtn" >
+        {{categoryChild.name}}
+      </button>
+    </div>
+  </div>
+</div>

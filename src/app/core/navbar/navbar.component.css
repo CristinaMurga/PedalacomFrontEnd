@@ -1,0 +1,29 @@
+/*font-family: 'IBM Plex Sans', sans-serif;
+font-family: 'Vina Sans', sans-serif;*/
+
+
+
+.appname {
+    font-family: 'Vina Sans', sans-serif;
+    font-size: 31px;
+}
+
+nav {
+  
+    box-shadow: 0.5px 0.5px 0.5px black;
+}
+.navItem {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 21px;
+}
+
+
+
+a{
+    text-decoration: none;
+}
+.shippingDiv {
+    
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+

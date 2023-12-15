@@ -11,7 +11,7 @@
                 </div>
                 <div class="row">
                     <div class="col-10 mx-auto mt-2">
-                        <label for="username">Userame</label>
+                        <label for="username">Username</label>
                         <input class="form-control" type="text" id="username" #username>
                     </div>
                 </div>
@@ -23,7 +23,8 @@
                 </div>
                 <div class="row">
                     <div class="col-10 mx-auto mt-2 text-center">
-                        <button class="btn btn_login rounded-0 ">Login</button>
+                        <button class="btn btn_login rounded-0"
+                        (click)="Login(username.value,pwd.value)">Login</button>
                     </div>
                 </div>
             </div>

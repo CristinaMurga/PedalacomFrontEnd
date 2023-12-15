@@ -17,4 +17,8 @@ export class CatalogueService {
   getCategoryChilds(productCategoryID: number): Observable<any> {
     return this.http.get(`https://localhost:7020/api/Category/${productCategoryID}`)
   }
+
+  getPreviewProducts(productCategoryID:number):Observable<any> {
+    return this.http.get(`https://localhost:7020/PreviewProducts/${productCategoryID}`)
+  }
 }

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CatalogueService } from '../../shared/crudhttp/catalogue.service';
 import { CategoryParent } from '../../shared/modelsdata/CategoryParent';
 import { CategoryChild } from '../../shared/modelsdata/CategoryChild';
+import { PreviewProduct} from '../../shared/modelsdata/PreviewProduct'
+
 
 @Component({
   selector: 'app-catalogue',
@@ -24,6 +26,8 @@ export class CatalogueComponent {
 
   constructor(private ws: CatalogueService) { }
 
+
+  //Codice relativo a category Parent
   ngOnInit(){
     this.getCategoryParent()
   }
@@ -40,9 +44,10 @@ export class CatalogueComponent {
     });
   }
 
+  //Codice relativo a category child
   getCategoryChilds(productCategoryID: number){
     this.ws.getCategoryChilds(productCategoryID).subscribe({
-      next: (data: any) => {
+      next: (data: CategoryChild[]) => {
         console.log(data);
         this.categoryChildList = data;
   
@@ -54,7 +59,17 @@ export class CatalogueComponent {
   }
 
   showHideCategoriesChild(){
+
     this.showCategoriesChild = !this.showCategoriesChild;
   }
 
+  //Codice relativo a Previewed Products
+
+  getPreviewProducts(productCategoryID:number){
+    this.ws.getPreviewProducts(productCategoryID).subscribe({
+      next: (data: PreviewProduct[]) => {
+        console.log(data)
+      }
+    })
+  }
 }

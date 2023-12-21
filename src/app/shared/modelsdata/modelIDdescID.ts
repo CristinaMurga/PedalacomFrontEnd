@@ -1,5 +1,5 @@
 import { ProductDescription } from "./productDescription";
-import { ProductModel } from "./productModel";
+
 
 export class ModelIDdescID {
 
@@ -14,7 +14,6 @@ export class ModelIDdescID {
 
   modifiedDate: Date = new Date();
 
-  productModel: ProductModel[] = [];
 
   productDescription: ProductDescription[] = []
 }

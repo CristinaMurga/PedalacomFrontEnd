@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class LoginService {
       this.headerOptions.set('Authorization','Basic ' + btoa(user + ':' + pwd));
       localStorage.setItem('token', btoa(user + ':' + pwd));
       localStorage.setItem('userName', user);
+  }
+
+  getCustomersEmail(email: string): Observable<any> {
+     return this.http.get(`https://localhost:7020/OldCustomers/${email}`)
   }
 }
 

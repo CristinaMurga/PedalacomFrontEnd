@@ -26,22 +26,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-4  mt-2">
-                        <label for="name">Username</label>
-                        <input class="form-control" type="text" id="userName"  #userName>
-                    </div>
-                    <div class="col-12 col-md-4 mt-2">
+                    <div class="col-12 col-md-6 mt-2">
                         <label for="password">Password</label>
                         <input class="form-control" type="password" id="password"  #passwrd>
                     </div>
-                    <div class="col-12 col-md-4 mt-2">
+                    <div class="col-12 col-md-6 mt-2">
                         <label for="chckPsw">Check Password</label>
                         <input class="form-control" type="password" id="chckPsw"  #chckPsw>
                     </div>
                 </div>
 
                 <div>
-                    <button class=" mt-3 ms-auto btn  btn_signUp d-flex">Sing Up</button>
+                    <button class=" mt-3 ms-auto btn  btn_signUp d-flex" 
+                    (click)="InsertNewCustomer(name.value, lastName.value, email.value, phone.value, passwrd.value)">
+                        Sing Up</button>
                 </div>
             </form>
         </div>

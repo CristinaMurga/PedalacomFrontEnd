@@ -26,3 +26,9 @@
     padding-bottom: 20px;
 }
 
+.modalShow{
+    display: block;
+    background-color: #FF9238;
+    z-index: 0;
+}
+

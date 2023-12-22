@@ -13,18 +13,101 @@
                     <div class="col-10 mx-auto mt-2">
                         <label for="username">Username</label>
                         <input class="form-control" type="text" id="username" #username>
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-10 mx-auto mt-2">
                         <label for="pwd">Password</label>
-                        <input class="form-control" type="password" id="pwd"  #pwd>
+                        <input class="form-control" type="password" id="pwd" #pwd>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-10 mx-auto mt-2 text-center">
-                        <button class="btn btn_login rounded-0"
-                        (click)="Login(username.value,pwd.value)">Login</button>
+                        <button class="btn btn_login rounded-0" (click)="Login(username.value,pwd.value)">Login</button>
+                    </div>
+                </div>
+                <div *ngIf="isItOld">
+                    <div class="alert alert-danger " role="alert">
+                        utente old
+                    </div>
+                    <div class="modal " [ngStyle]="{'display': isModalVisible ? 'block' : 'none'}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">It's necessary to update your informations</h1>
+                                    <button type="button" class="btn-close" (click)="closeModal()"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container mt-5">
+                                        <div class="row ">
+                                            <div class="col-8 mx-auto signUpBox ">
+                                                <form action="">
+                                                   
+                                                    <div class="row">
+                                                        <h3 class="signUph3">Create an account</h3>
+                                                        <div class="col-12 col-md-6  mt-2">
+                                                            <label for="name">Name</label>
+                                                            <input class="form-control" type="text" id="name"  #name>
+                                                        </div>
+                                                        <div class="col-12 col-md-6  mt-2">
+                                                            <label for="lastName">Last Name</label>
+                                                            <input class="form-control" type="text" id="lastName"  #lastName>
+                                                        </div>
+                                                    </div>
+                                    
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-7 mt-2">
+                                                            <label for="email">Email Address</label>
+                                                            <input class="form-control" type="email" id="email"  #email>
+                                                        </div>
+                                                        <div class="col-12 col-md-5 mt-2">
+                                                            <label for="phone">Phone Number</label>
+                                                            <input class="form-control" type="text" id="phone"  #phone>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6 mt-2">
+                                                            <label for="password">Password</label>
+                                                            <input class="form-control" type="password" id="password"  #passwrd>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 mt-2">
+                                                            <label for="chckPsw">Check Password</label>
+                                                            <input class="form-control" type="password" id="chckPsw"  #chckPsw>
+                                                        </div>
+                                                    </div>
+                                    
+                                                    <div>
+                                                        <button class=" mt-3 ms-auto btn  btn_signUp d-flex"
+                                                        (click)="UpdateCustomer(name.value, lastName.value, phone.value, passwrd.value)">
+                                                            Sing Up</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        (click)="closeModal()">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="incorrectCredenzials">
+                    <div class="alert alert-danger " role="alert">
+                        Credenzials are incorrect
+                    </div>
+                </div>
+                <div *ngIf="userlogged">
+                    <div class="alert alert-success " role="alert">
+                        user Logged
                     </div>
                 </div>
             </div>
@@ -32,6 +115,9 @@
         <div class="col-12 col-lg-6 ">
             <img class="img-fluid" src="../../../assets/media/loginBike.jpg" alt="">
         </div>
-
     </div>
+
+
+
+
 </div>

@@ -5,4 +5,5 @@ export class OldCustomer{
     emailAddress: string= '';
 
     isOld = 0;
+    rowguid: string = ''
 }

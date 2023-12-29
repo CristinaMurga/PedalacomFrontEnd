@@ -9,8 +9,7 @@ import { Customer } from '../../shared/modelsdata/Customer';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css',
-  providers: [SingupService]
+  styleUrl: './signup.component.css'
 })
 export class SigninComponent {
 
@@ -29,7 +28,7 @@ export class SigninComponent {
     middleName: '',
     lastName: lastName,
     suffix:'',
-    companyName: '000',
+    companyName: '',
     salesPerson: '',
     emailAddress: email,
     phone: phone,

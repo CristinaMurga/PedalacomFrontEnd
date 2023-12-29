@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Customer } from '../modelsdata/Customer';
 
 @Injectable({
@@ -8,12 +8,16 @@ import { Customer } from '../modelsdata/Customer';
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+
+
+  constructor(private http:HttpClient, private ngZone: NgZone) { }
   user:User = new User();
+  
   headerOptions = new HttpHeaders({
     contentType: 'application/json',
     responseType: 'text'
   })
+
 
   RunLogin(user:string, pwd:string) {
     this.setTokenHttpHeader(user, pwd)
@@ -32,9 +36,26 @@ export class LoginService {
      return this.http.get(`https://localhost:7020/OldCustomers/${email}`)
   }
 
-  SaveUpdate(email: string, customer: Customer){
+  SaveUpdate(email: string, customer: Customer): Observable<any> {
     return this.http.put(`https://localhost:7020/api/Customers/${email}`, customer, {observe: 'response'});
   }
+
+  private isUserLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isUserLoggedIn$: Observable<boolean> = this.isUserLoggedInSubject.asObservable();
+
+  setUserLoggedIn(value: boolean) {
+    this.ngZone.run(() => {
+      this.isUserLoggedInSubject.next(value);
+      console.log('Cambiamento di stato rilevato:', value);
+    });
+  }
+
+  getUserLoggedIn(): boolean {
+    return this.isUserLoggedInSubject.value;
+  }
+
+  
+
 }
 
 export class User {

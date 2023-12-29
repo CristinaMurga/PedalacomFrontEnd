@@ -31,7 +31,7 @@
                     <div class="alert alert-danger " role="alert">
                         utente old
                     </div>
-                    <div class="modal " [ngStyle]="{'display': isModalVisible ? 'block' : 'none'}">
+                    <!-- <div class="modal " [ngStyle]="{'display': isModalVisible ? 'block' : 'none'}">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -43,7 +43,7 @@
                                     <div class="container mt-5">
                                         <div class="row ">
                                             <div class="col-8 mx-auto signUpBox ">
-                                                <form action="">
+                                                <form >
                                                    
                                                     <div class="row">
                                                         <h3 class="signUph3">Create an account</h3>
@@ -89,11 +89,57 @@
                                     
                                     </div>
                                     
-                                </div>
-                                <div class="modal-footer">
+                                </div> -->
+                                <!-- <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         (click)="closeModal()">Close</button>
                                     <button type="button" class="btn btn-primary">Understood</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="modal" [ngStyle]="{'display': isModalVisible ? 'block' : 'none'}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Registrazione</h1>
+                                    <button type="button" class="btn-close" (click)="closeModal()"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form di registrazione -->
+                                    <form>
+                                        <!-- <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                required #email>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nome" class="form-label">Nome</label>
+                                            <input type="text" class="form-control" id="nome" name="nome"
+                                                required #name>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cognome" class="form-label">Cognome</label>
+                                            <input type="text" class="form-control" id="cognome"
+                                                name="cognome" required #surname>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telefono" class="form-label">Telefono</label>
+                                            <input type="number" class="form-control" id="telefono"
+                                                name="telefono" required #idprova>
+                                        </div> -->
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="password"
+                                                name="password" required #pwd>
+                                        </div>
+                                        <button type="button" class="btn btn-primary me-3"
+                                            (click)="closeModal()">Annulla</button>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="UpdateCustomer(pwd.value)">Registrati</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

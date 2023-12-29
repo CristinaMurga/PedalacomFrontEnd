@@ -3,6 +3,7 @@ font-family: 'Vina Sans', sans-serif;*/
 
 
 
+
 .appname {
     font-family: 'Vina Sans', sans-serif;
     font-size: 31px;
@@ -23,7 +24,10 @@ a{
     text-decoration: none;
 }
 .shippingDiv {
-    
+    background-color: #FF9238;
+    color: black;
     font-family: 'IBM Plex Sans', sans-serif;
+    border-bottom: 1px solid black;
+    font-weight: 900;
 }
 

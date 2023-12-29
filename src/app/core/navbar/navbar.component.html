@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg bg-white">
   <div class="container-fluid">
-    <a class="navbar-brand appname" href="#">PEDALACOM</a>
+    <a class="nav-link appname ms-3" routerLink="/home" routerLinkActive="true" >PEDALACOM <i class="bi bi-bicycle"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,27 +11,23 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link navItem" routerLink="/catalogue" routerLinkActive="true">Catalogue</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navItem" routerLink="/products" routerLinkActive="true">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navItem" href="#">Pricing</a>
-          </li>
+ 
           
         </ul>
-        
+       
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link navItem me-2 "  routerLink="/log-in" routerLinkActive="true"><i class=" bi bi-person-fill me-1"></i>Sign in</a>
+            <a *ngIf="showlogin"  class="nav-link navItem me-2 "  routerLink="/log-in" routerLinkActive="true"><i class=" bi bi-person-fill me-1"></i>Sign in</a>
           </li>
+          <li>
+            <a *ngIf="showLogged" class="nav-link navItem me-2 " >User is logged in!</a>
+          </li>
+        
         </ul>
       </div>
     </div>
 </nav>
 
-<div class="container-fluid bg-black d-flex justify-content-center text-white">Free shipping on bikes and accessories</div>
+<div class="container-fluid d-flex justify-content-center shippingDiv">Free shipping on bikes and accessories</div>
 
 <router-outlet></router-outlet>

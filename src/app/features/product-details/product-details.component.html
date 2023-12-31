@@ -1,0 +1,30 @@
+<div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
+    <button class="menubtn" routerLink="/catalogue" routerLinkActive="true">Catalogue</button>
+    <button class="menubtn"> <a href="#Philosophy" >Our Philosophy</a></button>
+    <button class="menubtn">Contact Us</button>
+    <button class="menubtn">Recensioni</button>
+</div>
+
+<div class="container  box mt-5 ps-4">
+    <h3 class="name mt-5">{{productDescription.product}}</h3>
+    <div class="row">
+
+        <div class="ps-4 col-12 col-md-5">
+            <img src="../../../assets/media/fotoCard.jpg" class="img-fluid" alt="">
+        </div>
+        <div class="col-12 col-md-7 pt-lg-5 ps-5 descriptionBox">
+            <div class="pb-lg-3">Color: {{productDescription.color}} 
+                <p class="colorbox" [ngStyle]="{'background-color':retornarColor()}"></p>
+            </div>
+            <p class="pb-lg-3">Size: {{productDescription.size}}</p>
+            <p class="pb-lg-3"> Weight: {{productDescription.weight}} </p>
+            <p class="pb-lg-3">Price: ${{productDescription.listPrice}} USD </p>
+            <p class="pb-lg-3"> {{productDescription.description}}</p>
+    
+        </div>
+   
+    </div>
+
+</div>
+
+

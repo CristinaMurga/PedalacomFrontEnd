@@ -4,6 +4,7 @@ import { CatalogueService } from '../../shared/crudhttp/catalogue.service';
 import { CategoryParent } from '../../shared/modelsdata/CategoryParent';
 import { CategoryChild } from '../../shared/modelsdata/CategoryChild';
 import { PreviewProduct} from '../../shared/modelsdata/PreviewProduct'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,15 +22,18 @@ export class CatalogueComponent {
 
   categoryChild: CategoryChild = new CategoryChild();
   categoryChildList: CategoryChild[] = []
+  
+  previewProductsList: PreviewProduct[] = []
 
   showCategoriesChild: boolean = false;
 
-  constructor(private ws: CatalogueService) { }
+  constructor(private ws: CatalogueService, private router: Router ) { }
 
 
   //Codice relativo a category Parent
   ngOnInit(){
     this.getCategoryParent()
+    
   }
 
   getCategoryParent() {
@@ -69,7 +73,12 @@ export class CatalogueComponent {
     this.ws.getPreviewProducts(productCategoryID).subscribe({
       next: (data: PreviewProduct[]) => {
         console.log(data)
+        this.previewProductsList = data;
       }
     })
+  }
+
+  goToProductDetails(id: number){
+    this.router.navigate(['/product', id])
   }
 }

@@ -1,21 +1,22 @@
 .categoryParentnav {
-    background-color: #39A7FF;
-    font-family: 'Vina Sans', sans-serif;
-    box-shadow: 1px 1px 2px black;
+    background-color: black;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    box-shadow: 1px 1px 2px white;
     padding: 0;
   
 }
 .categoryParentbtn {
    
-    font-size: 21px;
-    color: black;
+    font-weight: 700;
+    font-size: 25px;
+    color: white;
     background-color: transparent;
     border: none;
 }
-.categoryParentbtn:hover {
-    text-shadow: 0.2px 0.2px 0.05px black;
-    color: black;
-}
+/* .categoryParentbtn:hover {
+    text-shadow: 0.2px 0.2px 0.05px white;
+    color: white;
+} */
 
 a{
     text-decoration: none;
@@ -23,15 +24,28 @@ a{
 
 .categoryChidBox{
     
-    border: 0.4px solid  grey;
+
     font-family: 'Saira Extra Condensed', sans-serif;
+    background-color: black;
+
 }
 
 
 .categoryChildbtn{
     padding: 15px 0px;
-    font-size: 18px;
-    color: #FF9238;
+    font-size: 20px;
+    color: white;
     background-color: transparent;
     border: none;
+}
+.productBox{
+    box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    border: 0.4px solid  grey;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    height: 100%;
+    background-color: transparent;
+    color: #FF9238 ;
+    
 }

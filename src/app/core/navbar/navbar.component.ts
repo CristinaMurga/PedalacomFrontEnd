@@ -24,14 +24,21 @@ export class NavbarComponent {
       console.log('Valore in navbar:', value);
       this.isUserLoggedIn = value;
       this.cdr.detectChanges();
-  
-      // Verifica se isUserLoggedIn è true
-      if (this.isUserLoggedIn) {
-        console.log('isUserLoggedIn è true. Esegui azione desiderata.');
-        this.showLogged = true;
-        this.showlogin = false;
-        // Esegui qui l'azione che desideri quando isUserLoggedIn è true
+
+      // // Verifica se isUserLoggedIn è true
+    
+      if (sessionStorage.getItem(this.login.tokenKey) == null) {
+        this.showLogged = false
+        this.showlogin = true
+        console.log('devo loggarmi')
+
+      } else {
+        this.showlogin = false
+        this.showLogged = true
+        console.log('sono loggato')
+        
       }
+      console.log(sessionStorage.getItem(this.login.tokenKey))
     });
   }
 

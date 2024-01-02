@@ -17,7 +17,18 @@ import { DetailedProduct } from '../../shared/modelsdata/DetailedProduct';
 export class ProductDetailsComponent {
   productId = 0;
   productDescription: DetailedProduct = new DetailedProduct()
+
+  showColor = false;
   productColor: string = '';
+
+  showSize = false;
+
+  showWeight = false;
+
+  showPrice = false;
+
+  showDescription = false;
+
   constructor(private route: ActivatedRoute, private ws: ProductDetailsService) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -33,8 +44,22 @@ export class ProductDetailsComponent {
       next: (data: DetailedProduct) => {
         this.productDescription = data;
         console.log(data);
-        this.productColor = this.productDescription.color.toLowerCase();
-        console.log('Color producto:' , this.productColor)
+        if(data.color != null){
+          this.showColor = true
+          this.productColor = this.productDescription.color.toLowerCase();
+        }
+        if(data.size != null){
+          this.showSize = true;
+        }
+        if(data.weight != null){
+          this.showWeight = true
+        } 
+        if(data.listPrice != null){
+          this.showPrice = true
+        }
+        if(data.description != null){
+          this.showDescription = true
+        }
 
       },
       error: (err: any) => {

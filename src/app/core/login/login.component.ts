@@ -5,6 +5,8 @@ import { LoginService } from '../../shared/services/login.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { OldCustomer } from '../../shared/modelsdata/OldCustomer';
 import { Customer } from '../../shared/modelsdata/Customer';  
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ import { Customer } from '../../shared/modelsdata/Customer';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private login:LoginService){}
+  constructor(private login:LoginService, private router:Router){}
   
  
 
@@ -50,7 +52,9 @@ export class LoginComponent {
                 console.log('resp:' + resp.status);
                 if(resp.status == 200) {
                   this.login.setTokenHttpHeader(userName,pwd);
-                  this.setUserLoggedIn()
+                  this.setUserLoggedIn();
+                  this.redirectHome();
+                
               }},
               error: (err: any) => {
                 if(err.status == HttpStatusCode.BadRequest){
@@ -114,11 +118,13 @@ export class LoginComponent {
     
   }
 
-
   closeModal(){
     this.isModalVisible = false;
   }
 
+  redirectHome(){
+    this.router.navigate(['/home']);
+  }
 
 
 }

@@ -8,8 +8,9 @@ import { Customer } from '../modelsdata/Customer';
 })
 export class LoginService {
 
-
-
+  tokenKey: string = 'token';
+  userName:string = 'userName';
+ 
   constructor(private http:HttpClient, private ngZone: NgZone) { }
   user:User = new User();
   
@@ -28,8 +29,9 @@ export class LoginService {
   setTokenHttpHeader(user:string, pwd:string){
     this.headerOptions = 
       this.headerOptions.set('Authorization','Basic ' + btoa(user + ':' + pwd));
-      localStorage.setItem('token', btoa(user + ':' + pwd));
-      localStorage.setItem('userName', user);
+      sessionStorage.setItem(this.tokenKey, btoa(user + ':' + pwd));
+      sessionStorage.setItem(this.userName, user);
+   
   }
 
   getCustomersEmail(email: string): Observable<any> {
@@ -53,8 +55,6 @@ export class LoginService {
   getUserLoggedIn(): boolean {
     return this.isUserLoggedInSubject.value;
   }
-
-  
 
 }
 

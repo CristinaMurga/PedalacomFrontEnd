@@ -13,13 +13,14 @@
             <img src="../../../assets/media/fotoCard.jpg" class="img-fluid" alt="">
         </div>
         <div class="col-12 col-md-7 pt-lg-5 ps-5 descriptionBox">
-            <div class="pb-lg-3">Color: {{productDescription.color}} 
-                <p class="colorbox" [ngStyle]="{'background-color':retornarColor()}"></p>
+            <div class=" m-0 d-flex">
+                <p *ngIf="showColor" >Color: {{productDescription.color}} </p>
+                <p *ngIf="showColor" class="colorbox" [ngStyle]="{'background-color':retornarColor()}"></p>
             </div>
-            <p class="pb-lg-3">Size: {{productDescription.size}}</p>
-            <p class="pb-lg-3"> Weight: {{productDescription.weight}} </p>
-            <p class="pb-lg-3">Price: ${{productDescription.listPrice}} USD </p>
-            <p class="pb-lg-3"> {{productDescription.description}}</p>
+            <p *ngIf="showSize" class="pb-lg-3">Size: {{productDescription.size}}</p>
+            <p *ngIf="showWeight" class="pb-lg-3"> Weight: {{productDescription.weight}} gr </p>
+            <p *ngIf="showPrice" class="pb-lg-3">Price: ${{productDescription.listPrice}} USD </p>
+            <p *ngIf="showDescription" class="pb-lg-3"> {{productDescription.description}}</p>
     
         </div>
    

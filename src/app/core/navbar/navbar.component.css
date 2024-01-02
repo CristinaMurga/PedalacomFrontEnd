@@ -15,7 +15,7 @@ nav {
 }
 .navItem {
     font-family: 'Saira Extra Condensed', sans-serif;
-    font-size: 21px;
+    font-size: 18px;
 }
 
 
@@ -31,3 +31,13 @@ a{
     font-weight: 900;
 }
 
+.logOutBtn {
+    margin: 8px 0;
+    border: none;
+    background-color:  black;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 18px;
+    color: white;
+    
+
+}

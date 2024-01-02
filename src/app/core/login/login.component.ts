@@ -21,7 +21,7 @@ export class LoginComponent {
  
 
   updatedCustomer: Customer = new Customer();
-  oldCustomer : OldCustomer = new OldCustomer();
+  oldCustomer : Customer = new Customer();
 
   isItOld= false;
   isModalVisible = false;
@@ -35,10 +35,11 @@ export class LoginComponent {
     this.userlogged = false;
 
     this.login.getCustomersEmail(userName).subscribe({
-        next: (data: OldCustomer ) =>
+        next: (data: Customer ) =>
         {
           console.log(userName);
           this.oldCustomer = data
+          console.log(this.oldCustomer)
           if(this.oldCustomer.isOld == 1){
             this.isItOld = true;
             this.isModalVisible = true;
@@ -73,19 +74,18 @@ export class LoginComponent {
 
 
   UpdateCustomer(tmpPassword: string){
-    console.log(this.oldCustomer)
     this.updatedCustomer = {
       customerID: this.oldCustomer.customerID,
-      nameStyle: true,
-      title: 'string',
-      firstName: 'string',
-      middleName: 'string',
-      lastName: 'string',
-      suffix:'string',
-      companyName: 'string',
-      salesPerson: 'string',
+      nameStyle: this.oldCustomer.nameStyle,
+      title: this.oldCustomer.title,
+      firstName: this.oldCustomer.firstName,
+      middleName: this.oldCustomer.middleName,
+      lastName: this.oldCustomer.lastName,
+      suffix: this.oldCustomer.suffix,
+      companyName: this.oldCustomer.companyName,
+      salesPerson: this.oldCustomer.salesPerson,
       emailAddress: this.oldCustomer.emailAddress,
-      phone: 'string',
+      phone: this.oldCustomer.phone,
       passwordHash: '00',
       passwordSalt: '00',
       rowguid: this.oldCustomer.rowguid,
@@ -94,28 +94,19 @@ export class LoginComponent {
       isOld : 0
      }
 
-     console.log(this.updatedCustomer)
-
      this.login.SaveUpdate(this.updatedCustomer.emailAddress, this.updatedCustomer).subscribe({
       next: (data: any) => {
       alert(data.status);
-        console.log(data);
-        console.log('Inserimento Dipendente, avvenuto con successo!');
-        console.log(data.status)
         this.closeModal();
       },
       error: (err: any) => {
         console.log(err.status);
-        alert(err.status)
       },
      })
   }
 
   setUserLoggedIn() {
-    console.log('diventa true')
     this.login.setUserLoggedIn(true);
-    console.log('è diventato true?:' )
-    
   }
 
   closeModal(){

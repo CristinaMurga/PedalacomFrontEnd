@@ -35,7 +35,7 @@ export class LoginService {
   }
 
   getCustomersEmail(email: string): Observable<any> {
-     return this.http.get(`https://localhost:7020/OldCustomers/${email}`)
+     return this.http.get(`https://localhost:7020/api/Customers/${email}`)
   }
 
   SaveUpdate(email: string, customer: Customer): Observable<any> {

@@ -6,15 +6,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './shared/services/login.service';
 import { SingupService } from './shared/services/singup.service';
 import { ProductDetailsService } from './shared/crudhttp/product-details.service';
-
+import { FooterComponent } from './core/footer/footer.component';
+import { CustomerAreaService } from './shared/crudhttp/customer-area.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, HttpClientModule],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, HttpClientModule, FooterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [LoginService, SingupService, ProductDetailsService]
+  providers: [LoginService, SingupService, ProductDetailsService, CustomerAreaService]
 })
 export class AppComponent {
   title = 'Pedalacom_Front';

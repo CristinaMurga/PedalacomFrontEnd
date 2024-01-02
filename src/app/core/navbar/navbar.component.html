@@ -17,10 +17,13 @@
        
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a *ngIf="showlogin"  class="nav-link navItem me-2 "  routerLink="/log-in" routerLinkActive="true"><i class=" bi bi-person-fill me-1"></i>Sign in</a>
+            <a *ngIf="showlogin"  class="nav-link navItem  ms-3 me-2 "  routerLink="/log-in" routerLinkActive="true"><i class=" bi bi-person-fill me-1"></i>Sign in</a>
           </li>
           <li>
-            <a *ngIf="showLogged" class="nav-link navItem me-2 " >User is logged in!</a>
+            <a *ngIf="showLogged" class="nav-link navItem ms-3" routerLink="/personal-area" routerLinkActive="true">User is logged in!</a>
+          </li>
+          <li>
+            <button *ngIf="showLogOut" (click)="logOut()" class="ms-sm-3 ms-lg-0 logOutBtn" >Log out</button>
           </li>
         
         </ul>

@@ -5,14 +5,14 @@
     <button class="menubtn">Recensioni</button>
 </div>
 
-<div class="container  box mt-5 ps-4">
-    <h3 class="name mt-5">{{productDescription.product}}</h3>
+<div class="container  box mt-5 ps-md-4">
+    <h3 class="name mt-5 ps-3">{{productDescription.product}}</h3>
     <div class="row">
 
         <div class="ps-4 col-12 col-md-5">
             <img src="../../../assets/media/fotoCard.jpg" class="img-fluid" alt="">
         </div>
-        <div class="col-12 col-md-7 pt-lg-5 ps-5 descriptionBox">
+        <div class="col-12 col-md-7 p-sm-4 pt-sm-2 ps-md-3 pt-lg-5 p-md-3 pe-md-5 descriptionBox">
             <div class=" m-0 d-flex">
                 <p *ngIf="showColor" >Color: {{productDescription.color}} </p>
                 <p *ngIf="showColor" class="colorbox" [ngStyle]="{'background-color':retornarColor()}"></p>
@@ -20,7 +20,7 @@
             <p *ngIf="showSize" class="pb-lg-3">Size: {{productDescription.size}}</p>
             <p *ngIf="showWeight" class="pb-lg-3"> Weight: {{productDescription.weight}} gr </p>
             <p *ngIf="showPrice" class="pb-lg-3">Price: ${{productDescription.listPrice}} USD </p>
-            <p *ngIf="showDescription" class="pb-lg-3"> {{productDescription.description}}</p>
+            <p *ngIf="showDescription" class="pb-lg-3 descText"> {{productDescription.description}}</p>
     
         </div>
    

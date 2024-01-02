@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './core/home/home/home.component';
+import { HomeComponent } from './core/home/home.component';
 import { LoginComponent } from './core/login/login.component';
 import { SigninComponent } from './core/signup/signup.component';
 import { CatalogueComponent } from './features/catalogue/catalogue.component';
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
+import { CustomersAreaComponent } from './features/customers-area/customers-area.component';    
  
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -11,5 +12,6 @@ export const routes: Routes = [
     {path: 'sign-up', component: SigninComponent},
     {path: 'catalogue', component: CatalogueComponent},
     {path: 'product/:id', component: ProductDetailsComponent},
+    {path: 'personal-area', component: CustomersAreaComponent},
     {path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

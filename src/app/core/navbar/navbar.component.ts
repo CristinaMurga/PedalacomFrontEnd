@@ -14,7 +14,11 @@ export class NavbarComponent {
 
   showlogin = true;
   showLogged = false;
+  showLogOut = false;
   isUserLoggedIn: boolean = false;
+  
+  userName = '';
+
 
   constructor(private login: LoginService, private cdr: ChangeDetectorRef) { }
 
@@ -28,20 +32,23 @@ export class NavbarComponent {
       // // Verifica se isUserLoggedIn è true
     
       if (sessionStorage.getItem(this.login.tokenKey) == null) {
-        this.showLogged = false
-        this.showlogin = true
-        console.log('devo loggarmi')
-
+        this.showLogged = false;
+        this.showLogOut= false;
+        this.showlogin = true;
       } else {
-        this.showlogin = false
-        this.showLogged = true
-        console.log('sono loggato')
-        
+        this.showlogin = false;
+        this.showLogged = true;
+        this.showLogOut = true;
       }
-      console.log(sessionStorage.getItem(this.login.tokenKey))
     });
   }
 
+  logOut(){
+    sessionStorage.clear()
+    this.showLogged = false;
+    this.showLogOut = false;
+    this.showlogin = true;
+  }
 
 
 }

@@ -1,4 +1,7 @@
-
+.boxcontainer{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
 
 .signUpBox {
     border: 0.4px solid  grey;

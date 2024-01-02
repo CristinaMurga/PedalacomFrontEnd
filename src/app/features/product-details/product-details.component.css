@@ -43,3 +43,6 @@ a {
     margin: 5px 0 0 5px;
 
 }
+.descText{
+    text-align: justify;
+}

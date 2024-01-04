@@ -1,0 +1,17 @@
+.menu {
+    background-color: black;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    box-shadow: 1px 1px 2px black;
+    padding: 0;
+    z-index: 0;
+    
+  
+}
+
+.menubtn {
+   font-weight: 700;
+    font-size: 25px;
+    color: white;
+    background-color: transparent;
+    border: none;
+}

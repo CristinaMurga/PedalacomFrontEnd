@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, Route } from '@angular/router';
 import { LoginService } from '../../shared/services/login.service';
 
 @Component({
@@ -17,10 +17,10 @@ export class NavbarComponent {
   showLogOut = false;
   isUserLoggedIn: boolean = false;
   
-  userName = '';
+  userName: any;
 
 
-  constructor(private login: LoginService, private cdr: ChangeDetectorRef) { }
+  constructor(private login: LoginService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
     console.log('NavbarComponent ngOnInit');
@@ -39,6 +39,7 @@ export class NavbarComponent {
         this.showlogin = false;
         this.showLogged = true;
         this.showLogOut = true;
+        this.userName = sessionStorage.getItem(this.login.userName)
       }
     });
   }
@@ -48,6 +49,8 @@ export class NavbarComponent {
     this.showLogged = false;
     this.showLogOut = false;
     this.showlogin = true;
+    this.router.navigate(['/home'])
+
   }
 
 

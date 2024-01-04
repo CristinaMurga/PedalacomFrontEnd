@@ -91,7 +91,8 @@ export class LoginComponent {
       rowguid: this.oldCustomer.rowguid,
       tmpPassword: tmpPassword,
       modifiedDate: new Date(),
-      isOld : 0
+      isOld : 0,
+      customerAddresses:[]
      }
 
      this.login.SaveUpdate(this.updatedCustomer.emailAddress, this.updatedCustomer).subscribe({

@@ -16,6 +16,11 @@ export class CustomerAreaService {
 
  SaveUpdate(email: string, customer: Customer): Observable<any> {
   return this.http.put(`https://localhost:7020/api/Customers/${email}`, customer, {observe: 'response'});
+ 
+}
+
+GetCostumerAddress(id: number) : Observable<any> {
+  return this.http.get(`https://localhost:7020/api/Addresses/${id}`);
 }
  
 

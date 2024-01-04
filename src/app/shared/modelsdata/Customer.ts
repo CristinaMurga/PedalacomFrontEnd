@@ -1,3 +1,5 @@
+import { CustomerAddresses } from "./CustomerAddresses";
+
 export class Customer{
 
     customerID: number = 0;
@@ -17,5 +19,7 @@ export class Customer{
     tmpPassword:string = ''
     modifiedDate: Date = new Date();
     isOld = 0;
+    customerAddresses: CustomerAddresses[] = []
+
 }
 

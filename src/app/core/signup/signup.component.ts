@@ -37,7 +37,8 @@ export class SigninComponent {
     rowguid: '3fa85f64-5717-4562-b3fc-2c963f66afa1',
     tmpPassword: tmpPassword,
     modifiedDate: new Date(),
-    isOld : 0
+    isOld : 0,
+    customerAddresses:[]
    }
 
    console.log(this.newCustomer)

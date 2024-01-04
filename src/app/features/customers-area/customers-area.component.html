@@ -1,35 +1,35 @@
 <div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
-    <button class="menubtn" >Your Information</button>
-    <button class="menubtn">Your address </button>
-
+    <button class="menubtn" (click)="OpenPersonalInfoBox()">Personal Information</button>
+    <button class="menubtn" (click)="GetCustomerAddress(addressID)">Address </button>
+    <button class="menubtn" (click)="OpenPwdBox()">Change Password</button>
+    <button class="menubtn" (click)="GetOrders(orderSalesID)">Orders</button>
 </div>
 
 <div class="container">
+
     <div class="row pDataBoX">
-     
-      
-        <div class="col-12 col-md-6">
-             <h3>Personal Information </h3> 
-                <button (click)="OpenModifyData()"><i class="bi bi-pencil-fill"></i></button>
-            
+        <div *ngIf="showPersonalInfo" class="col-12 col-md-6">
+            <h3>Personal Information </h3>
+            <button (click)="OpenModifyData()"><i class="bi bi-pencil-fill"></i></button>
+
             <ul>
                 <li>{{user.firstName}}</li>
                 <li>{{user.emailAddress}}</li>
                 <li>{{user.lastName}}</li>
             </ul>
-           
+
         </div>
 
         <p *ngIf="successMsg">data saved successfully</p>
         <p *ngIf="errorMsg">data hasn't been saved. Try again</p>
         <div class="col-12 col-md-6" *ngIf="showDataForm">
             <div>
-                <h3 >Modify Data</h3>
+                <h3>Modify Data</h3>
                 <button (click)="CloseModiFyData()"><i class="bi bi-x-lg"></i></button>
             </div>
-          
 
-            <ul s>
+
+            <ul>
                 <li>
                     <label for="name">Name</label>
                     <input class="form-control" type="text" id="name" #name>
@@ -41,39 +41,99 @@
                 <li>
                     <label for="phone">Phone Number</label>
                     <input class="form-control" type="text" id="phone" #phone>
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password"
-                        name="password" required #pwd>
+
+                    <input type="password" class="hide" id="password" name="password" required #pwd>
                 </li>
-                <button class="mt-3 ms-auto " 
-                (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value)">Save Changes
+                <button class="mt-3 ms-auto "
+                    (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value)">Save Changes
                 </button>
             </ul>
 
         </div>
     </div>
+    <div class="row" *ngIf="showAddressBox">
+
+        <div class="col-12 col-md-6">
+            <h4>Your Address</h4>
+            <ul>
+                <li>{{userAddress.addressLine1}}</li>
+                <li *ngIf="showAddress2">{{userAddress.addressLine2}}</li>
+                <li>{{userAddress.city}}</li>
+                <li>{{userAddress.stateProvince}}</li>
+                <li>{{userAddress.postalCode}}</li>
+                <li>{{userAddress.countryRegion}}</li>
+            </ul>
+        
+        </div>
+        
+        <div class="col-12 col-md-6">
+            <div>
+                <h3>Modify Address</h3>
+                <button><i class="bi bi-x-lg"></i></button>
+            </div>
+            <ul>
+                <li>
+                    <label for="addr1">Address</label>
+                    <input class="form-control" type="text" id="addr1" #addr1>
+                </li>
+                <li *ngIf="showAddress2">
+                    <label  for="addr2">Address2</label>
+                    <input  class="form-control" type="text" id="addr2" #addr2>
+                </li>
+                <li>
+                    <label for="city">City</label>
+                    <input class="form-control" type="text" id="city" #city>
+                </li>
+                <li>
+                    <label for="state">State /Province </label>
+                    <input class="form-control" type="text" id="state" #state>
+                </li>
+                <li>
+                    <label for="pd">Postal Code </label>
+                    <input class="form-control" type="text" id="pd" #pd>
+                </li>
+                <li>
+                    <label for="cuontry">Country / Region </label>
+                    <input class="form-control" type="text" id="cuontry" #cuontry>
+                </li>
+
+
+                <button class="mt-3 ms-auto ">Save Changes
+                </button>
+            </ul>
+        
+        </div>
+    </div>
+
+
+
 </div>
 
 
 
-<div>
-   <h4>Your Address</h4>
-    <ul>
-        <li>{{userAddress.addressLine1}}</li>
-        <li *ngIf="showAddress2">{{userAddress.addressLine2}}</li>
-        <li>{{userAddress.city}}</li>
-        <li>{{userAddress.stateProvince}}</li>
-        <li>{{userAddress.postalCode}}</li>
-        <li>{{userAddress.countryRegion}}</li>
-     
-    </ul>
 
-</div>
 
-<div>
+
+<div *ngIf="showChagePwd">
+    <input class="hide" type="text" id="name" #name>
+    <input class="hide" type="text" id="lastName" #lastName>
+    <input class="hide" type="text" id="phone" #phone>
+
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password"
-        name="password" required #pwd>
-        <button type="button" (click)="UpdateCustomer('', '', '', pwd.value)"
-        >Registrati</button>
+    <input type="password" class="form-control" id="password" name="password" required #pwd>
+    <button type="button" (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value)">Change
+        password</button>
+</div>
+
+
+
+<div *ngIf="showOrders">
+
+    <p>ORDER NUMBER: {{orderSalesID}}</p>
+
+    <ul>
+        <li *ngFor="let order of customerOrdersList ">
+            order Qty :{{order.orderQty}} - Product ID{{order.productId}}
+            - unitPrice {{order.unitPrice}}</li>
+    </ul>
 </div>

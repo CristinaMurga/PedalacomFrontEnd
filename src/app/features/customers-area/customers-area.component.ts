@@ -4,7 +4,8 @@ import { CustomerAreaService } from '../../shared/crudhttp/customer-area.service
 import { Customer } from '../../shared/modelsdata/Customer';
 import { Router } from '@angular/router';
 import { Address } from '../../shared/modelsdata/Address';
-import { last } from 'rxjs';
+import { SalesOrderDetails } from '../../shared/modelsdata/SalesOrderDetails';
+
 
 
 @Component({
@@ -21,35 +22,42 @@ export class CustomersAreaComponent {
   user: Customer = new Customer();
 
   userAddress: Address = new Address();
+  updatedCustomer: Customer = new Customer();
+
+  customerOrder: SalesOrderDetails = new SalesOrderDetails()
+  customerOrdersList: SalesOrderDetails[] = []
+
+  showPersonalInfo = false;
+  showAddressBox = false;
+  showChagePwd = false;
+  showOrders = false;
 
   showDataForm = false;
   successMsg = false;
   errorMsg = false;
-  updatedCustomer: Customer = new Customer();
+
 
   showAddress2 = false;
 
+  addressID: number = 0;
+  orderSalesID: number = 0;
 
 
   ngOnInit() {
     this.getCustomerDetails(this.userActive);
-    
-    
 
-  
-  //  this.GetCustomerAddress(499)
   }
   getCustomerDetails(username: any) {
     this.ws.getCustomer(username).subscribe({
       next: (data: Customer) => {
         this.user = data;
-        this.user.customerAddresses.forEach(element => {
-          console.log(element.addressId);
-          this.GetCustomerAddress(element.addressId)
-          
+        this.user.customerAddresses.forEach(address => {
+          this.addressID = address.addressId;
         });
 
-    
+        this.user.salesOrderHeaders.forEach(order =>{
+          this.orderSalesID = order.salesOrderId ;
+        })
       },
       error: (err: any) => {
         console.log("Get costumer email err:" + err);
@@ -58,22 +66,19 @@ export class CustomersAreaComponent {
   }
 
   UpdateCustomer(name: string, lastName: string, phone: string, tmpPassword: string) {
-    if(name == '' || name == null){
+    if (name == '' || name == null) {
       name = this.user.firstName
     }
-    if(lastName == '' || lastName == null){
-    lastName = this.user.lastName
-    }  
-    if(phone == '' || phone == null){
+    if (lastName == '' || lastName == null) {
+      lastName = this.user.lastName
+    }
+    if (phone == '' || phone == null) {
       phone = this.user.phone
     }
-    if(tmpPassword == '' || tmpPassword == null){
+    if (tmpPassword == '' || tmpPassword == null) {
       tmpPassword = this.user.tmpPassword
     }
-
-
-
-
+    this.showChagePwd = false;
     this.updatedCustomer = {
       customerID: this.user.customerID,
       nameStyle: true,
@@ -92,7 +97,8 @@ export class CustomersAreaComponent {
       tmpPassword: tmpPassword,
       modifiedDate: new Date(),
       isOld: 0,
-      customerAddresses: []
+      customerAddresses: [],
+      salesOrderHeaders: []
     }
 
 
@@ -123,18 +129,61 @@ export class CustomersAreaComponent {
   }
 
   GetCustomerAddress(id: number) {
-    this.ws.GetCostumerAddress(id).subscribe({
+    this.ws.GetCustomerAddress(id).subscribe({
       next: (data: Address) => {
         this.userAddress = data;
-        console.log(data)
-        if(this.userAddress.addressLine2 != null){
+        if (this.userAddress.addressLine2 != null) {
           this.showAddress2 = true;
         }
+        this.OpenAddressBox();
       },
-      error:(err: any)=> {
-        console.log
+      error: (err: any) => {
+        console.log(err)
       }
     })
+  }
+
+  GetOrders(id: number) {
+    this.ws.GetCustomersOrders(id).subscribe({
+      next: (data: SalesOrderDetails[]) => {
+        this.customerOrdersList = data
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+    this.OpenOrdersBox();
+  }
+
+  OpenPersonalInfoBox() {
+    this.showPersonalInfo = true;
+    this.showAddressBox = false;
+    this.showChagePwd = false;
+    this.showOrders = false;
+  }
+
+  OpenAddressBox() {
+    this.showPersonalInfo = false;
+    this.showAddressBox = true;
+    this.showChagePwd = false;
+    this.showOrders = false;
+    this.CloseModiFyData()
+  }
+
+  OpenPwdBox() {
+    this.showPersonalInfo = false;
+    this.showAddressBox = false;
+    this.showChagePwd = true;
+    this.showOrders = false;
+    this.CloseModiFyData()
+  }
+
+  OpenOrdersBox(){
+    this.showPersonalInfo = false;
+    this.showAddressBox = false;
+    this.showChagePwd = false;
+    this.showOrders = true;
+    this.CloseModiFyData()
   }
 
   OpenModifyData() {

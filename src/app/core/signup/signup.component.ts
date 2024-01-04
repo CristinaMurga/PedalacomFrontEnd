@@ -38,7 +38,8 @@ export class SigninComponent {
     tmpPassword: tmpPassword,
     modifiedDate: new Date(),
     isOld : 0,
-    customerAddresses:[]
+    customerAddresses:[],
+    salesOrderHeaders:[]
    }
 
    console.log(this.newCustomer)

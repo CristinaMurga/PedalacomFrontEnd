@@ -1,4 +1,5 @@
 import { CustomerAddresses } from "./CustomerAddresses";
+import { SalesOrderHeader } from "./SalesOrderHeader";
 
 export class Customer{
 
@@ -20,6 +21,6 @@ export class Customer{
     modifiedDate: Date = new Date();
     isOld = 0;
     customerAddresses: CustomerAddresses[] = []
-
+    salesOrderHeaders: SalesOrderHeader[] = []
 }
 

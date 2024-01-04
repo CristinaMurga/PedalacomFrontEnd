@@ -19,9 +19,12 @@ export class CustomerAreaService {
  
 }
 
-GetCostumerAddress(id: number) : Observable<any> {
+GetCustomerAddress(id: number) : Observable<any> {
   return this.http.get(`https://localhost:7020/api/Addresses/${id}`);
 }
  
+GetCustomersOrders(id : number) : Observable<any> {
+  return this.http.get(`https://localhost:7020/api/SalesOrderDetails/${id}`)
+}
 
 }

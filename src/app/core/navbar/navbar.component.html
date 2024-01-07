@@ -23,6 +23,9 @@
             <a *ngIf="showLogged" class="nav-link navItem ms-3" routerLink="/personal-area" routerLinkActive="true">{{userName}}</a>
           </li>
           <li>
+            <a *ngIf="isAdminLogged" class="nav-link navItem ms-3" routerLink="/admin" routerLinkActive="true">{{userName}}</a>
+          </li>
+          <li>
             <button *ngIf="showLogOut" (click)="logOut()" class="ms-sm-3 ms-lg-0 logOutBtn" >Log out</button>
           </li>
         

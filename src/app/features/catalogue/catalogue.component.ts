@@ -5,12 +5,12 @@ import { CategoryParent } from '../../shared/modelsdata/CategoryParent';
 import { CategoryChild } from '../../shared/modelsdata/CategoryChild';
 import { PreviewProduct} from '../../shared/modelsdata/PreviewProduct'
 import { Router } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: 'catalogue.component.html',
   styleUrl: './catalogue.component.css',
   providers: [CatalogueService]
@@ -25,7 +25,12 @@ export class CatalogueComponent {
   
   previewProductsList: PreviewProduct[] = []
 
+  filteredProductList: PreviewProduct[] = []; 
+  searchTerm: string = '';
+
   showCategoriesChild: boolean = false;
+  showProducts:boolean = false;
+
 
   constructor(private ws: CatalogueService, private router: Router ) { }
 
@@ -72,13 +77,25 @@ export class CatalogueComponent {
   getPreviewProducts(productCategoryID:number){
     this.ws.getPreviewProducts(productCategoryID).subscribe({
       next: (data: PreviewProduct[]) => {
-        console.log(data)
+       
         this.previewProductsList = data;
+        this.filteredProductList = [...this.previewProductsList];
+        this.showProducts = true
       }
     })
+  }
+
+  liveSearch() {
+    // Filter products based on the entered search term for the name
+    this.filteredProductList = this.previewProductsList.filter(product =>
+      product.product.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    
   }
 
   goToProductDetails(id: number){
     this.router.navigate(['/product', id])
   }
+
+
 }

@@ -40,10 +40,14 @@ export class LoginComponent {
           console.log(userName);
           this.oldCustomer = data
           console.log(this.oldCustomer)
+
+          //if user is old
           if(this.oldCustomer.isOld == 1){
             this.isItOld = true;
             this.isModalVisible = true;
             console.log('registrati di nuovo')
+
+            //if user is not old
           }else if(this.oldCustomer.isOld == 0){
             console.log('Log in')
 
@@ -55,7 +59,6 @@ export class LoginComponent {
                   this.login.setTokenHttpHeader(userName,pwd);
                   this.setUserLoggedIn();
                   this.redirectHome();
-                
               }},
               error: (err: any) => {
                 if(err.status == HttpStatusCode.BadRequest){
@@ -64,6 +67,27 @@ export class LoginComponent {
                 }
               }
             })
+            
+            // if user is an admin
+          }else if(this.oldCustomer.isOld == 2){
+            console.log('admin')
+            this.login.RunLogin(userName,pwd).subscribe({
+              next: (resp: any) => {
+                console.log('resp:' + resp.status);
+                if(resp.status == 200) {
+                  this.login.setTokenHttpHeader(userName,pwd);
+                  this.setUserLoggedIn();
+                  this.redirectHome();
+              }},
+              error: (err: any) => {
+                if(err.status == HttpStatusCode.BadRequest){
+                  console.log('Impossibile eseguire il login');
+                  this.incorrectCredenzials = true;
+                }
+              }
+            })
+            
+
           }
         },
         error: (err: any) => {

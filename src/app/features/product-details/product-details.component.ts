@@ -48,16 +48,14 @@ export class ProductDetailsComponent {
           this.showColor = true
           this.productColor = this.productDescription.color.toLowerCase();
         }
-        if(data.size != null){
+        if(data.size != null || data.size == ''){
           this.showSize = true;
         }
-        if(data.weight != null){
+        if(data.weight != null || data.weight == ''){
           this.showWeight = true
         } 
-        if(data.listPrice != null){
-          this.showPrice = true
-        }
-        if(data.description != null){
+      
+        if(data.description != null || data.description== ''){
           this.showDescription = true
         }
 

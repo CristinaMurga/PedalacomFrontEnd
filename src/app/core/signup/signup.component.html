@@ -1,52 +1,71 @@
 <div class="container boxcontainer">
     <div class="row ">
-        <div class="col-8 mx-auto signUpBox ">
+
+
+
+
+        <div class="col-10 mx-auto signUpBox p-5">
+
             <form action="">
-               
+
                 <div class="row">
-                    <h3 class="signUph3">Create an account</h3>
+                    <div class="d-flex justify-content-between">
+                        <h3>Create an account</h3>
+                        <button class="closeBtn text-end" (click)="redirectLogin()"><i class="bi bi-x-lg"></i></button>
+                    </div>
+
+                    <div *ngIf="noCreated">
+                        <p class="errMessage text-center">Impossible to create the account. Try again</p>
+                    </div>
+
                     <div class="col-12 col-md-6  mt-2">
                         <label for="name">Name <span class="mandatoryTags">*mandatory</span></label>
-                        <input class="form-control" type="text" id="name"  #name>
-                        <p *ngIf="errorMandatory" class="mandatoryTags">* Some fields are mandatory</p>
+                        <input class="form-control" type="text" id="name" #name>
+
                     </div>
                     <div class="col-12 col-md-6  mt-2">
                         <label for="lastName">Last Name <span class="mandatoryTags">*mandatory</span></label>
-                        <input class="form-control" type="text" id="lastName"  #lastName>
+                        <input class="form-control" type="text" id="lastName" #lastName>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12 col-md-7 mt-2">
                         <label for="email">Email Address <span class="mandatoryTags">*mandatory</span></label>
-                        <input class="form-control" type="email" id="email"  #email>
+                        <input class="form-control" type="email" id="email" #email>
                     </div>
                     <div class="col-12 col-md-5 mt-2">
                         <label for="phone">Phone Number</label>
-                        <input class="form-control" type="text" id="phone"  #phone>
+                        <input class="form-control" type="text" id="phone" #phone>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6 mt-2">
                         <label for="password">Password <span class="mandatoryTags">*mandatory</span></label>
-                        <input class="form-control" type="password" id="password"  #passwrd>
+                        <input class="form-control" type="password" id="password" #passwrd>
                     </div>
                     <div class="col-12 col-md-6 mt-2">
                         <label for="chckPsw">Check Password <span class="mandatoryTags">*mandatory</span></label>
-                        <input class="form-control" type="password" id="chckPsw"  #chckPsw>
+                        <input class="form-control" type="password" id="chckPsw" #chckPsw>
                     </div>
-                  
+
                 </div>
-                <p *ngIf="errorMandatory" class="mandatoryTags">*Check if you filled all mandatory fields</p>
-                <p *ngIf="errorPwd">Passwords don't match </p>
+                <div *ngIf="errorMandatory">
+                    <p  class="errMessage text-center">*Some fields are mandatory</p>
+                </div>
+                <div *ngIf="errorPwd">
+                    <p  class="errMessage text-center">*Passwords don't match </p>
+                </div>
+
+
 
                 <div>
-                    <button class=" mt-3 ms-auto btn  btn_signUp d-flex" 
-                    (click)="InsertNewCustomer(name.value, lastName.value, email.value, phone.value, 
+                    <button class=" mt-4 ms-auto btn  btn_signUp d-flex" (click)="InsertNewCustomer(name.value, lastName.value, email.value, phone.value, 
                     passwrd.value, chckPsw.value)">
                         Sing Up</button>
                 </div>
             </form>
+
         </div>
     </div>
 

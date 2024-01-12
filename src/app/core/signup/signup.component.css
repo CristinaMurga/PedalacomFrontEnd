@@ -1,17 +1,20 @@
 .boxcontainer{
     margin-top: 100px;
     margin-bottom: 100px;
+   
 }
 
 .signUpBox {
     border: 0.4px solid  grey;
-    padding: 40px;
-   
+    box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+   font-size: 18px;
     font-family: 'Saira Extra Condensed', sans-serif;
 }
-.signUph3{
+h3{
     font-family: 'Saira Extra Condensed', sans-serif;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 500;
     color: #FF9238;
 }
@@ -20,9 +23,29 @@
 .btn_signUp {
    border-radius: 0%;
     background-color: #FF9238;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .mandatoryTags{
+
+    font-weight: 500;
     color: #39A7FF;
 }
 
+input {
+    border-radius: 0%;
+    border: 1px solid gray;
+}
+
+.errMessage {
+    padding-top: 30px;
+    font-weight: 600;
+    color: #39A7FF;
+    font-size: 20px;
+}
+.closeBtn{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+}

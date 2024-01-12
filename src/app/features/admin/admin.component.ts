@@ -5,11 +5,13 @@ import { Product } from '../../shared/modelsdata/product';
 import { FormsModule } from '@angular/forms';
 import { Category } from '../../shared/modelsdata/Category';
 import { Model } from '../../shared/modelsdata/Models';
+import { LoginComponent } from '../../core/login/login.component';
+import { Customer } from '../../shared/modelsdata/Customer';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,LoginComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 
@@ -23,6 +25,7 @@ export class AdminComponent {
   newProduct: Product = new Product();
   updatedProduct : Product = new Product()
 
+  user: Customer = new Customer()
 
 
   filteredProductList: Product[] = []; // Add this line
@@ -40,16 +43,32 @@ export class AdminComponent {
   showCreateform: boolean = false;
   showEditForm: boolean = false;
   showDeleteBox: boolean = false;
-
+  content: boolean = false;
+  denegatedAccess: boolean = true;
   productID:number = 0;
+  
 
   constructor(private ws: AdminService) { }
 
   ngOnInit(){
     this.getProducts();
+    this.VerifyAdmin();
   }
 
-
+  VerifyAdmin() {
+    this.ws.getAdmin(sessionStorage.getItem('userName')).subscribe({
+      next:(data: Customer) => {
+        this.user = data
+         if(this.user.isOld == 2){
+          this.denegatedAccess = false;
+          this.content = true;
+         }
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    })
+  }
 
   getProducts() {
     this.ws.getProducts().subscribe({

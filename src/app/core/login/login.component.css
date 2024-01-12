@@ -1,15 +1,21 @@
 .btn_login {
+    border-radius: 0%;
     background-color: #FF9238;
+    font-size: 20px;
+    font-weight: 500;
+}
+.btnCancel{
+    background-color: #39A7FF;
 }
 
 .loginBox {
     padding: 19px 20px;
-   
+    font-size: 19px;
     font-family: 'Saira Extra Condensed', sans-serif;
 }
-.logh3{
+h3 , h5{
     font-family: 'Saira Extra Condensed', sans-serif;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 500;
     color: #FF9238;
 }
@@ -20,6 +26,9 @@
 
 .log_imgBox{
     border: 0.4px solid  grey;
+    box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
     padding-top: 35px;
     padding-left: 30px;
     padding-right: 30px;
@@ -35,4 +44,34 @@
 .boxcontainer{
     margin-top: 100px;
     margin-bottom: 100px;
+}
+.errMessage {
+    padding-top: 30px;
+    font-weight: 600;
+    color: #39A7FF;
+    font-size: 20px;
+}
+
+input {
+    border-radius: 0%;
+    border: 1px solid gray;
+}
+
+.renewPwdBox{
+    border: 0.4px solid  grey;
+    font-size: 19px;
+    font-family: 'Saira Extra Condensed', sans-serif;
+}
+.closeBtn{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+}
+
+
+@media only screen and (max-width: 991px) 
+{
+    .picture {
+       display: none;
+    }
 }

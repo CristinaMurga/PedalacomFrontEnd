@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './core/navbar/navbar.component';
@@ -20,5 +20,5 @@ import { AdminService } from './shared/crudhttp/admin.service';
   providers: [LoginService, SingupService, ProductDetailsService, CustomerAreaService, AdminService]
 })
 export class AppComponent {
-  title = 'Pedalacom_Front';
+
 }

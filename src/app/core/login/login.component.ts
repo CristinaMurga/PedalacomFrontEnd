@@ -22,34 +22,43 @@ export class LoginComponent {
 
   updatedCustomer: Customer = new Customer();
   oldCustomer : Customer = new Customer();
-
+  username = '';
   isItOld= false;
-  isModalVisible = false;
   incorrectCredenzials = false;
-  userlogged = false; 
+  showMandatoryErr = false;
+  showinvalidAccount = false;
+  showloginBox = true; 
+  showerrPwd = false;
+  noUpdated = false;
+
 
 
 
   Login(userName:string, pwd: string){
     this.incorrectCredenzials = false;
-    this.userlogged = false;
+  
+
+    if(userName === '' || pwd === ''){
+      this.showMandatoryErr = true;
+      return
+    }
+    
 
     this.login.getCustomersEmail(userName).subscribe({
         next: (data: Customer ) =>
         {
           console.log(userName);
           this.oldCustomer = data
-          console.log(this.oldCustomer)
 
           //if user is old
           if(this.oldCustomer.isOld == 1){
             this.isItOld = true;
-            this.isModalVisible = true;
-            console.log('registrati di nuovo')
+            this.showloginBox = false;
+          
 
             //if user is not old
           }else if(this.oldCustomer.isOld == 0){
-            console.log('Log in')
+           
 
 
             this.login.RunLogin(userName,pwd).subscribe({
@@ -59,11 +68,14 @@ export class LoginComponent {
                   this.login.setTokenHttpHeader(userName,pwd);
                   this.setUserLoggedIn();
                   this.redirectHome();
+                  this.username = this.oldCustomer.emailAddress;
               }},
               error: (err: any) => {
                 if(err.status == HttpStatusCode.BadRequest){
                   console.log('Impossibile eseguire il login');
                   this.incorrectCredenzials = true;
+                  this.showinvalidAccount = false;
+                  this.showMandatoryErr = false;
                 }
               }
             })
@@ -83,6 +95,8 @@ export class LoginComponent {
                 if(err.status == HttpStatusCode.BadRequest){
                   console.log('Impossibile eseguire il login');
                   this.incorrectCredenzials = true;
+                  this.showinvalidAccount = false;
+                  this.showMandatoryErr = false;
                 }
               }
             })
@@ -91,13 +105,26 @@ export class LoginComponent {
           }
         },
         error: (err: any) => {
-            console.log("Get costumer email err:" + err);
+           this.showinvalidAccount = true;
+           this.incorrectCredenzials = false;
+           this.showMandatoryErr = false;
         } 
     })
   }
 
 
-  UpdateCustomer(tmpPassword: string){
+  UpdateCustomer(tmpPassword: string, checkpwd: string){
+    if(tmpPassword === '' || checkpwd === ''){
+      this.showMandatoryErr = true;
+      return;
+    }
+    if (checkpwd != tmpPassword) {
+      this.showerrPwd= true;
+      this.showMandatoryErr = false;
+      return;
+    }
+
+
     this.updatedCustomer = {
       customerID: this.oldCustomer.customerID,
       nameStyle: this.oldCustomer.nameStyle,
@@ -122,11 +149,11 @@ export class LoginComponent {
 
      this.login.SaveUpdate(this.updatedCustomer.emailAddress, this.updatedCustomer).subscribe({
       next: (data: any) => {
-      alert(data.status);
-        this.closeModal();
+       this.showloginBox = true;
+       this.isItOld = false;
       },
       error: (err: any) => {
-        console.log(err.status);
+        this.noUpdated = true;
       },
      })
   }
@@ -135,8 +162,9 @@ export class LoginComponent {
     this.login.setUserLoggedIn(true);
   }
 
-  closeModal(){
-    this.isModalVisible = false;
+  closeupdatepwd(){
+    this.isItOld = false;
+    this.showloginBox = true;
   }
 
   redirectHome(){

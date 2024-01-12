@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../modelsdata/product';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getAdmin(email: string): Observable<any> {
+  getAdmin(email: any): Observable<any> {
     return this.http.get(`https://localhost:7020/OldCustomers/${email}`)
   }
 

@@ -49,3 +49,17 @@ a{
     color: #FF9238 ;
     
 }
+
+input {
+    border-radius: 0%;
+    border: 1px solid gray;
+}
+
+h3 , h2 {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: #FF9238;
+
+}
+

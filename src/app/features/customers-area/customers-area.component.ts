@@ -27,16 +27,19 @@ export class CustomersAreaComponent {
   customerOrder: SalesOrderDetails = new SalesOrderDetails()
   customerOrdersList: SalesOrderDetails[] = []
 
+  failckPwd = false;
   showPersonalInfo = false;
   showAddressBox = false;
   showChagePwd = false;
   showOrders = false;
-
+  ShowcustArea = true;
+  showWlc = true;
   showDataForm = false;
+  showAddrForm = false; 
   successMsg = false;
   errorMsg = false;
-
-
+  noAddress = false;
+  noOrders = false;
   showAddress2 = false;
 
   addressID: number = 0;
@@ -65,7 +68,7 @@ export class CustomersAreaComponent {
     })
   }
 
-  UpdateCustomer(name: string, lastName: string, phone: string, tmpPassword: string) {
+  UpdateCustomer(name: string, lastName: string, phone: string, tmpPassword: string, checkpwd: string) {
     if (name == '' || name == null) {
       name = this.user.firstName
     }
@@ -77,8 +80,12 @@ export class CustomersAreaComponent {
     }
     if (tmpPassword == '' || tmpPassword == null) {
       tmpPassword = this.user.tmpPassword
+    } else if(tmpPassword != checkpwd){
+      this.failckPwd = true;
+      return;
     }
-    this.showChagePwd = false;
+
+  
     this.updatedCustomer = {
       customerID: this.user.customerID,
       nameStyle: true,
@@ -111,6 +118,7 @@ export class CustomersAreaComponent {
           this.getCustomerDetails(this.userActive)
           this.CloseModiFyData();
           this.successMsg = true;
+          this.failckPwd = false;
 
         } else {
           alert('errore')
@@ -135,10 +143,19 @@ export class CustomersAreaComponent {
         if (this.userAddress.addressLine2 != null) {
           this.showAddress2 = true;
         }
+    
         this.OpenAddressBox();
       },
       error: (err: any) => {
-        console.log(err)
+        if (this.userAddress.addressId == 0){
+          this.noAddress = true
+          this.CloseModiFyData()
+          this.showPersonalInfo = false;
+          this.showOrders = false;
+          this.showChagePwd = false;
+          this.noOrders = false;
+        }
+        
       }
     })
   }
@@ -147,53 +164,101 @@ export class CustomersAreaComponent {
     this.ws.GetCustomersOrders(id).subscribe({
       next: (data: SalesOrderDetails[]) => {
         this.customerOrdersList = data
+        if (this.customerOrdersList.length === 0){
+          this.noOrders = true
+          this.CloseModiFyData()
+          this.showPersonalInfo = false;
+          this.showAddressBox = false;
+          this.showChagePwd = false;
+          this.showOrders = false;
+      }
+        
       },
       error: (err: any) => {
-        console.log(err)
+
+      console.log(err)
       }
     })
     this.OpenOrdersBox();
   }
 
   OpenPersonalInfoBox() {
+    this.showWlc = false;
     this.showPersonalInfo = true;
     this.showAddressBox = false;
     this.showChagePwd = false;
     this.showOrders = false;
+    this.showAddrForm = false;
+    this.ShowcustArea = false;
+    this.errorMsg = false;
+    this.successMsg = false;
+    this.noAddress = false;
   }
 
   OpenAddressBox() {
+    this.showWlc = false;
     this.showPersonalInfo = false;
     this.showAddressBox = true;
     this.showChagePwd = false;
     this.showOrders = false;
+    this.ShowcustArea = false;
+    this.errorMsg = false;
+    this.successMsg = false;
     this.CloseModiFyData()
   }
 
   OpenPwdBox() {
+    this.showWlc = false;
     this.showPersonalInfo = false;
     this.showAddressBox = false;
     this.showChagePwd = true;
     this.showOrders = false;
+    this.ShowcustArea = false;
+    this.showAddrForm = false;
+    this.errorMsg = false;
+    this.successMsg = false;
     this.CloseModiFyData()
+    this.noAddress = false;
   }
 
   OpenOrdersBox(){
+    this.showWlc = false;
     this.showPersonalInfo = false;
     this.showAddressBox = false;
     this.showChagePwd = false;
     this.showOrders = true;
+    this.ShowcustArea = false;
+    this.showAddrForm = false;
+    this.errorMsg = false;
+    this.successMsg = false;
     this.CloseModiFyData()
+    this.noAddress = false;
   }
 
   OpenModifyData() {
     this.showDataForm = true;
     this.successMsg = false;
     this.errorMsg = false;
+    this.errorMsg = false;
+    this.successMsg = false;
   }
 
+  OpenModifyAddress() {
+    this.showAddrForm = true;
+    this.successMsg = false;
+    this.errorMsg = false;
+    this.errorMsg = false;
+    this.successMsg = false;
+  }
   CloseModiFyData() {
     this.showDataForm = false;
+    this.errorMsg = false;
+    this.successMsg = false;
+  }
+  CloseModiFyAddr() {
+    this.showAddrForm = false;
+    this.errorMsg = false;
+    this.successMsg = false;
   }
 
 }

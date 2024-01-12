@@ -1,6 +1,10 @@
+
+*{
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 19px;
+}
 .menu {
     background-color: black;
-    font-family: 'Saira Extra Condensed', sans-serif;
     box-shadow: 1px 1px 2px black;
     padding: 0;
     z-index: 0;
@@ -15,6 +19,78 @@
     background-color: transparent;
     border: none;
 }
+
+.boxcontainer{
+    margin-top: 100px;
+    margin-bottom: 100px;
+   
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    font-size: 19px;
+}
+
+
 .hide {
     display: none;
+}
+
+h3 , h2 {
+    font-size: 30px;
+    font-weight: 500;
+    color: #FF9238;
+    
+}
+h3 {
+    font-size: 26px;
+}
+.prsDataBx{
+    border: 1px solid gray;
+    box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+}
+.edit{
+    color: #FF9238;
+}
+
+.formMessage {
+    padding-top: 30px;
+    font-weight: 600;
+    color: #39A7FF;
+    font-size: 20px;
+}
+
+.submitBtn {
+    border-radius: 0%;
+    background-color: #FF9238;
+    font-size: 20px;
+    font-weight: 500;
+}
+input {
+    border-radius: 0%;
+    border: 1px solid gray;
+}
+.noAdrr{
+    font-size: 30px;
+}
+
+/* @media only screen and (max-width: 767px) 
+{
+    .prsDataBx {
+        border: none;
+        box-shadow: none;
+    }
+
+} */
+
+@media only screen and (max-width: 991px) 
+{
+    .prsDataBx {
+        border: none;
+        box-shadow: none;
+        margin-bottom: 30px;
+    }
 }

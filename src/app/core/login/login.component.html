@@ -1,169 +1,108 @@
-<div class="container boxcontainer">
+<div *ngIf="showloginBox" class="container boxcontainer">
     <div class="row log_imgBox">
         <div class="col-lg-6">
             <div class="loginBox">
                 <div class="row">
-                    <div class="col-10 mx-auto">
+                    <div class="col-12 col-md-10 mx-auto">
                         <h3 class="logh3">Sign In </h3>
                         <p>Don't you have an account yet? <a class="linkSignUp" routerLink="/sign-up"
                                 routerLinkActive="true">Register now</a></p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-10 mx-auto mt-2">
+                    <div class="col-12 col-md-10 mx-auto mt-2">
                         <label for="username">Username</label>
                         <input class="form-control" type="text" id="username" #username>
 
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-10 mx-auto mt-2">
+                    <div class="col-12 col-md-10 mx-auto mt-2">
                         <label for="pwd">Password</label>
                         <input class="form-control" type="password" id="pwd" #pwd>
                     </div>
                 </div>
+
+                <div *ngIf="showMandatoryErr">
+                    <p class="errMessage text-center">*Some fields are mandatory</p>
+                </div>
+
+                <div *ngIf="incorrectCredenzials">
+                    <p class="errMessage text-center">Credenzials are incorrect</p>
+                </div>
+
+                <div *ngIf="showinvalidAccount">
+                    <p class="errMessage text-center">Email is not registrated </p>
+                </div>
+
+
+
                 <div class="row">
-                    <div class="col-10 mx-auto mt-2 text-center">
+                    <div class="col-12 col-md-10 mx-auto mt-3 text-end">
                         <button class="btn btn_login rounded-0" (click)="Login(username.value,pwd.value)">Login</button>
                     </div>
                 </div>
-                <div *ngIf="isItOld">
-                    <div class="alert alert-danger " role="alert">
-                        utente old
-                    </div>
-                    <!-- <div class="modal " [ngStyle]="{'display': isModalVisible ? 'block' : 'none'}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5">It's necessary to update your informations</h1>
-                                    <button type="button" class="btn-close" (click)="closeModal()"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container mt-5">
-                                        <div class="row ">
-                                            <div class="col-8 mx-auto signUpBox ">
-                                                <form >
-                                                   
-                                                    <div class="row">
-                                                        <h3 class="signUph3">Create an account</h3>
-                                                        <div class="col-12 col-md-6  mt-2">
-                                                            <label for="name">Name</label>
-                                                            <input class="form-control" type="text" id="name"  #name>
-                                                        </div>
-                                                        <div class="col-12 col-md-6  mt-2">
-                                                            <label for="lastName">Last Name</label>
-                                                            <input class="form-control" type="text" id="lastName"  #lastName>
-                                                        </div>
-                                                    </div>
-                                    
-                                                    <div class="row">
-                                                        <div class="col-12 col-md-7 mt-2">
-                                                            <label for="email">Email Address</label>
-                                                            <input class="form-control" type="email" id="email"  #email>
-                                                        </div>
-                                                        <div class="col-12 col-md-5 mt-2">
-                                                            <label for="phone">Phone Number</label>
-                                                            <input class="form-control" type="text" id="phone"  #phone>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12 col-md-6 mt-2">
-                                                            <label for="password">Password</label>
-                                                            <input class="form-control" type="password" id="password"  #passwrd>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 mt-2">
-                                                            <label for="chckPsw">Check Password</label>
-                                                            <input class="form-control" type="password" id="chckPsw"  #chckPsw>
-                                                        </div>
-                                                    </div>
-                                    
-                                                    <div>
-                                                        <button class=" mt-3 ms-auto btn  btn_signUp d-flex"
-                                                        (click)="UpdateCustomer(name.value, lastName.value, phone.value, passwrd.value)">
-                                                            Sing Up</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    
-                                </div> -->
-                                <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        (click)="closeModal()">Close</button>
-                                    <button type="button" class="btn btn-primary">Understood</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
 
-                    <div class="modal" [ngStyle]="{'display': isModalVisible ? 'block' : 'none'}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5">Registrazione</h1>
-                                    <button type="button" class="btn-close" (click)="closeModal()"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Form di registrazione -->
-                                    <form>
-                                        <!-- <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email"
-                                                required #email>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="nome" class="form-label">Nome</label>
-                                            <input type="text" class="form-control" id="nome" name="nome"
-                                                required #name>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="cognome" class="form-label">Cognome</label>
-                                            <input type="text" class="form-control" id="cognome"
-                                                name="cognome" required #surname>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="telefono" class="form-label">Telefono</label>
-                                            <input type="number" class="form-control" id="telefono"
-                                                name="telefono" required #idprova>
-                                        </div> -->
-                                        <div class="mb-3">
-                                            <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="password"
-                                                name="password" required #pwd>
-                                        </div>
-                                        <button type="button" class="btn btn-primary me-3"
-                                            (click)="closeModal()">Annulla</button>
-                                        <button type="button" class="btn btn-primary"
-                                            (click)="UpdateCustomer(pwd.value)">Registrati</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div *ngIf="incorrectCredenzials">
-                    <div class="alert alert-danger " role="alert">
-                        Credenzials are incorrect
-                    </div>
-                </div>
-                <div *ngIf="userlogged">
-                    <div class="alert alert-success " role="alert">
-                        user Logged
-                    </div>
-                </div>
+            
             </div>
         </div>
-        <div class="col-12 col-lg-6 ">
-            <img class="img-fluid" src="../../../assets/media/loginBike.jpg" alt="">
+        <div class="col-12 col-lg-6 picture">
+            <img class="img-fluid" src="../../../assets/media/loginBike.jpg" alt="loginPicture">
         </div>
     </div>
 
 
 
 
+</div>
+
+<div *ngIf="isItOld" class="container boxcontainer">
+    <div class="row">
+
+        <div class="col-12 col-md-8 mx-auto renewPwdBox  p-3 p-md-5">
+
+            <div class="d-flex  justify-content-between">
+                <h5>It is necessary to update the password</h5>
+                <button class="closeBtn text-end"  (click)="closeupdatepwd()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+            </div>
+            <div *ngIf="noUpdated">
+                <p class="errMessage text-center">Impossible to update the password. Try again</p>
+            </div>
+            <div class="col-12 col-md-10 mx-auto mt-2">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password" #pwd>
+            </div>
+            <div class="col-12 col-md-10 mx-auto mt-2">
+                <label for="chckPsw">Check Password</label>
+                <input class="form-control" type="password" id="chckPsw" #chckPsw>
+            </div>
+
+            <div *ngIf="showMandatoryErr">
+                <p class="errMessage text-center">*Some fields are mandatory</p>
+            </div>
+
+            <div *ngIf="showerrPwd">
+                <p class="errMessage text-center">Passwords don't match</p>
+            </div>
+
+
+
+
+
+            <div class="row">
+                <div class="class=col-12 col-md-10 mx-auto mt-3 text-end">
+                    <button class="btn btn_login rounded-0" 
+                    (click)="UpdateCustomer(pwd.value, chckPsw.value)">Update Password</button>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
 </div>

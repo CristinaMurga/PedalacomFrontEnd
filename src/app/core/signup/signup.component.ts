@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SingupService } from '../../shared/services/singup.service';
 import { Customer } from '../../shared/modelsdata/Customer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -15,10 +16,11 @@ export class SigninComponent {
 
   errorPwd: boolean = false;
   errorMandatory: boolean = false;
+  noCreated: boolean = false;
 
   newCustomer: Customer = new Customer();
 
-  constructor(private ws: SingupService) { }
+  constructor(private ws: SingupService, private router: Router) { }
 
   InsertNewCustomer(name: string, lastName: string, email: string,
     phone: string, tmpPassword: string, chckPsw: string) {
@@ -62,15 +64,19 @@ export class SigninComponent {
           next: (data: any) => {
             this.errorMandatory= false;
             this.errorPwd = false;
+            this.redirectLogin();
+            
           },
           error: (err: any) => {
-            console.log(err);
+           this.noCreated = true;
           },
         })
       }
 
     }
-     
-   
+  }
+
+  redirectLogin(){
+    this.router.navigate(['/log-in']);
   }
 }

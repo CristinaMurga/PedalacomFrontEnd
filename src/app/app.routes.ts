@@ -6,6 +6,7 @@ import { CatalogueComponent } from './features/catalogue/catalogue.component';
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
 import { CustomersAreaComponent } from './features/customers-area/customers-area.component';   
 import { AdminComponent } from './features/admin/admin.component'; 
+import { CartComponent } from './features/cart/cart.component';
  
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -15,5 +16,7 @@ export const routes: Routes = [
     {path: 'product/:id', component: ProductDetailsComponent},
     {path: 'personal-area', component: CustomersAreaComponent},
     {path: 'admin', component: AdminComponent},
-    {path: '', redirectTo: 'home', pathMatch: 'full' }
+    {path: 'cart', component: CartComponent},
+    {path: '', redirectTo: '/home', pathMatch: 'full' },
+
 ];

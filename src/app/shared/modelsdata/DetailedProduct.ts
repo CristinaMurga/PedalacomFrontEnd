@@ -6,4 +6,6 @@ export class DetailedProduct {
     weight:number = 0;
     listPrice: number = 0;
     description: string = '';
+    image: any;
+    base64Image?: string;
 }

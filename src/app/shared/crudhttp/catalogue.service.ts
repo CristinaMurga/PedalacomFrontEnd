@@ -23,6 +23,10 @@ export class CatalogueService {
   }
 
   getProducts(): Observable<any> {
-    return this.http.get(`https://localhost:7020/api/Products`)
+    return this.http.get(`https://localhost:7020/PreviewProducts`)
+  }
+
+  getImages(productId: number): Observable<any> {
+    return this.http.get(`https://localhost:7020/ProductImages/${productId}`)
   }
 }

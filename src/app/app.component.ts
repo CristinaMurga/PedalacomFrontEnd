@@ -9,6 +9,8 @@ import { ProductDetailsService } from './shared/crudhttp/product-details.service
 import { FooterComponent } from './core/footer/footer.component';
 import { CustomerAreaService } from './shared/crudhttp/customer-area.service';
 import { AdminService } from './shared/crudhttp/admin.service';
+import { CatalogueService } from './shared/crudhttp/catalogue.service';
+import { CartService } from './shared/crudhttp/cart.service';
 
 
 @Component({
@@ -17,7 +19,8 @@ import { AdminService } from './shared/crudhttp/admin.service';
   imports: [CommonModule, RouterOutlet, NavbarComponent, HttpClientModule, FooterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [LoginService, SingupService, ProductDetailsService, CustomerAreaService, AdminService]
+  providers: [LoginService, SingupService, ProductDetailsService, CustomerAreaService, 
+      AdminService, CatalogueService, CartService]
 })
 export class AppComponent {
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, getLocaleFirstDayOfWeek } from '@angular/common';
 import { CustomerAreaService } from '../../shared/crudhttp/customer-area.service';
 import { Customer } from '../../shared/modelsdata/Customer';
 import { Router } from '@angular/router';
@@ -27,6 +27,9 @@ export class CustomersAreaComponent {
   customerOrder: SalesOrderDetails = new SalesOrderDetails()
   customerOrdersList: SalesOrderDetails[] = []
 
+  denegatedAccess= true;
+  access= false;
+
   failckPwd = false;
   showPersonalInfo = false;
   showAddressBox = false;
@@ -47,7 +50,8 @@ export class CustomersAreaComponent {
 
 
   ngOnInit() {
-    this.getCustomerDetails(this.userActive);
+    this.verifyaccess();
+    this.getCustomerDetails(this.userActive)
 
   }
   getCustomerDetails(username: any) {
@@ -193,6 +197,7 @@ export class CustomersAreaComponent {
     this.errorMsg = false;
     this.successMsg = false;
     this.noAddress = false;
+    this.noOrders = false;
   }
 
   OpenAddressBox() {
@@ -204,6 +209,7 @@ export class CustomersAreaComponent {
     this.ShowcustArea = false;
     this.errorMsg = false;
     this.successMsg = false;
+    this.noOrders = false;
     this.CloseModiFyData()
   }
 
@@ -219,6 +225,7 @@ export class CustomersAreaComponent {
     this.successMsg = false;
     this.CloseModiFyData()
     this.noAddress = false;
+    this.noOrders = false;
   }
 
   OpenOrdersBox(){
@@ -261,4 +268,10 @@ export class CustomersAreaComponent {
     this.successMsg = false;
   }
 
+  verifyaccess(){
+    if(this.userActive != null){
+        this.access = true;
+        this.denegatedAccess= false;
+    }
+  }
 }

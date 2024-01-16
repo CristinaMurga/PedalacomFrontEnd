@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { SingupService } from '../../shared/services/singup.service';
 import { Customer } from '../../shared/modelsdata/Customer';
 import { Router } from '@angular/router';
+import { LoginService } from '../../shared/services/login.service';
 
 @Component({
   selector: 'app-signin',
@@ -17,14 +18,16 @@ export class SigninComponent {
   errorPwd: boolean = false;
   errorMandatory: boolean = false;
   noCreated: boolean = false;
-
+  errorMail : boolean = false;
+  checkCustomer : Customer = new Customer();
   newCustomer: Customer = new Customer();
 
-  constructor(private ws: SingupService, private router: Router) { }
+  constructor(private ws: SingupService, private router: Router, private login: LoginService) { }
 
   InsertNewCustomer(name: string, lastName: string, email: string,
     phone: string, tmpPassword: string, chckPsw: string) {
-      console.log(chckPsw);
+
+   
     if(name === ''|| lastName == '' || email == '' || tmpPassword == '' || chckPsw == '' ){
       this.errorMandatory = true;
     } else{
@@ -34,6 +37,8 @@ export class SigninComponent {
       } else if(chckPsw == tmpPassword){
        
         this.errorPwd= false;
+        this.verifyEmail(email);
+
   
         this.newCustomer = {
           customerID: 0,
@@ -56,10 +61,7 @@ export class SigninComponent {
           customerAddresses: [],
           salesOrderHeaders: []
         }
-  
-        console.log(this.newCustomer)
-  
-  
+
         this.ws.PostCustomer(this.newCustomer).subscribe({
           next: (data: any) => {
             this.errorMandatory= false;
@@ -78,5 +80,21 @@ export class SigninComponent {
 
   redirectLogin(){
     this.router.navigate(['/log-in']);
+  }
+
+  verifyEmail(email: string){
+    this.login.getCustomersEmail(email).subscribe({
+      next: (data: Customer) => {
+        this.checkCustomer = data;
+        if(this.checkCustomer.customerID != 0){
+          this.errorMail = true
+          return;
+        }
+        
+      },
+      error: (err: any) =>{
+        console.log(err)
+      }
+    })
   }
 }

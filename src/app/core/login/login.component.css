@@ -74,4 +74,10 @@ input {
     .picture {
        display: none;
     }
+
+    .log_imgBox{
+        border: none;
+        box-shadow: none;
+        
+    }
 }

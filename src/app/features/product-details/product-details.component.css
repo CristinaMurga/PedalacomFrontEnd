@@ -46,3 +46,25 @@ a {
 .descText{
     text-align: justify;
 }
+button{
+    border-radius: 0%;
+    background-color: #FF9238;
+    font-size: 20px;
+    font-weight: 500;
+    
+}
+
+.okMessage {
+    padding-top: 30px;
+    font-weight: 600;
+    color: #39A7FF;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 991px) 
+{
+    .box {
+      border: none;
+      box-shadow: none;
+    }
+}

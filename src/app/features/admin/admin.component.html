@@ -1,153 +1,242 @@
+<div *ngIf="content" class="container mt-5 cartBox">
+  <div class="row">
+    <div class="col-10 mx-auto">
 
-<div *ngIf="content" class="container">
+      <div class="d-flex justify-content-between">
+        <h3 class="mb-4">ADMIN DASHBOARD</h3>
+        <button *ngIf="errorBtn" (click)="getErrors()">Errors Log</button>
+      </div>
 
-  <h1>ADMIN</h1>
 
+      <!-- SHOW PRODUCTS -->
+      <div *ngIf="showProducts" class="mt-5">
+        <div class="d-flex justify-content-between">
+          <div class="col-4">
+            <input class="form-control" type="text" [(ngModel)]="searchTerm" (input)="liveSearch()"
+              placeholder="Search by name">
 
+          </div>
 
+          <button (click)="OpenCreateFrom()" class="me-4"><i class="bi bi-plus-square"></i> Add product</button>
 
-  <div *ngIf="showProducts">
-  
-      <button (click)="OpenCreateFrom()">Add product</button>
-      <input type="text" [(ngModel)]="searchTerm" (input)="liveSearch()" placeholder="Search by name">
-  
-      <table>
+        </div>
+
+        <table class="table">
           <thead>
-              <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Color</th>
-                  <th>Price</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
-              </tr>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Color</th>
+              <th scope="col">Price</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let product of filteredProductList">
-                  <td>{{product.productId}}</td>
-                  <td>{{product.name}}</td>
-                  <td>{{product.color}}</td>
-                  <td>{{product.listPrice}}</td>
-                  <td> <button class="btn btn-info btn-sm mx-3" (click)="OpenEditForm(product.productId, product)">Edit</button></td>
-                  <td><button class="btn btn-danger btn-sm mx-3" (click)="DeleteProduct(product.productId)">Delete</button></td>
-              </tr>
+            <tr *ngFor="let product of filteredProductList">
+              <td>{{product.productId}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.color}}</td>
+              <td>{{product.listPrice}}</td>
+              <td> <button (click)="OpenEditForm(product.productId, product)"><i class="bi bi-pencil"></i></button></td>
+              <td><button (click)="OpenDeleteBox(product.productId, product.name)"><i class="bi bi-trash3"></i>
+                </button>
+              </td>
+            </tr>
           </tbody>
-      </table>
-  </div>
-  
-  <!-- PRODUCT CREATE -->
-  
-  <div *ngIf="showCreateform" class="container">
-  
-      <h2>Nuovo Prodotto</h2>
-      <button  (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
-      <form>
-        <div >
-          <label for="name">Nome:</label>
-          <input type="text" class="form-control" id="name"  #name required>
-          <p *ngIf="sameName">Name already exist!</p>
-        </div>
-        <div >
-          <label for="color">Colore:</label>
-          <input type="text" class="form-control" id="color"  #color required>
-        </div>
-        <div >
-          <label for="standardCost">Costo Standard:</label>
-          <input type="number" class="form-control" id="standardCost"  #stdCost >
-        </div>
-        <div >
-          <label for="listPrice">Prezzo di Listino:</label>
-          <input type="number" class="form-control" id="listPrice"  #price >
-        </div>
-        <div class="form-group">
-          <label for="size">Dimensione:</label>
-          <input type="text" class="form-control" id="size" placeholder="Inserisci la Dimensione" #size required>
-        </div>
-        <div class="form-group">
-          <label for="weight">Peso:</label>
-          <input type="number" class="form-control" id="weight" placeholder="Inserisci il Peso" #weight required>
-        </div>
-        <div class="form-group">
-          <label for="productCategoryId">Categoria Prodotto:</label>
-          <select class="form-control" id="productCategoryId" required #category>
+        </table>
+      </div>
+
+      <!-- PRODUCT CREATE -->
+
+      <div *ngIf="showCreateform" class="container">
+
+        <div class="row">
+          <div class="d-flex justify-content-between">
+            <h3>Add new Product</h3>
+            <button (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
+          </div>
+
+
+          <div class="col-12 col-md-8">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" #name required>
+            <p *ngIf="sameName">Name already exist!</p>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="color">Color</label>
+            <input type="text" class="form-control" id="color" #color required>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="standardCost">Standar Cost</label>
+            <input type="number" class="form-control" id="standardCost" #stdCost>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="listPrice">Price List</label>
+            <input type="number" class="form-control" id="listPrice" #price>
+          </div>
+          <div class=" col-12 col-md-3">
+            <label for="size">Size</label>
+            <input type="text" class="form-control" id="size" placeholder="Inserisci la Dimensione" #size required>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="weight">Weight</label>
+            <input type="number" class="form-control" id="weight" placeholder="Inserisci il Peso" #weight required>
+          </div>
+          <div class=" col-12 col-md-6">
+            <label for="productCategoryId">Category</label>
+            <select class="form-control" id="productCategoryId" required #category>
               <option *ngFor="let option of categoryOptions" [value]="option.productCategoryID">
                 {{ option.name }}</option>
-          </select>
-      </div>
-  
-      <div class="form-group">
-          <label for="productModelId">Modello Prodotto:</label>
-          <select class="form-control" id="productModelId" required #model>
+            </select>
+          </div>
+
+          <div class=" col-12 col-md-6">
+            <label for="productModelId">Model</label>
+            <select class="form-control" id="productModelId" required #model>
               <option *ngFor="let option of modelOptions" [value]="option.productModelId">{{ option.name }}</option>
-          </select>
+            </select>
+          </div>
+          <div class=" col-12 col-md-6">
+            <button (click)="CreateProduct(name.value,color.value, stdCost.valueAsNumber, price.valueAsNumber , 
+            size.value, weight.valueAsNumber,+category.value, +model.value)" class="btn deleteBtns">Create</button>
+          </div>
+
+
+
+        </div>
+
+
       </div>
-        <button (click)="CreateProduct(name.value,color.value, stdCost.valueAsNumber, price.valueAsNumber , 
-                                  size.value, weight.valueAsNumber,+category.value, +model.value)" 
-                                  class="btn btn-primary">Crea Prodotto</button>
-      </form>
-  </div>
-  
-  <!-- PRODUCT DELETE -->
-  <div *ngIf="showDeleteBox" class="container">
-    <button  (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
-   DELETE
-  </div>
-  
-  <!-- PRODUCT EDIT -->
-  
-  <div *ngIf="showEditForm" class="container">
-    Edit product
-  
-    <button  (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
-    <form>
-      <div >
-        <label for="name">Nome:</label>
-        <input type="text" class="form-control" id="name"  #name required>
-        <p *ngIf="sameName">Name already exist!</p>
+
+
+      <!-- PRODUCT EDIT -->
+
+      <div *ngIf="showEditForm" class="container">
+
+        <div class="row">
+          <div class="d-flex justify-content-between">
+            <h3>Edit product</h3>
+            <button (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
+          </div>
+
+
+          <div class="col-12 col-md-8">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" #name [value]="currentEditingProduct?.name" required>
+            <p *ngIf="sameName">Name already exist!</p>
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="color">Color</label>
+            <input type="text" class="form-control" id="color"  #color  [value]="currentEditingProduct?.color" required>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="standardCost">Standar Cost</label>
+            <input type="number" class="form-control" id="standardCost" #stdCost [value]="currentEditingProduct?.standardCost">
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="listPrice">Price List</label>
+            <input type="number" class="form-control" id="listPrice" #price [value]="currentEditingProduct?.listPrice">
+          </div>
+          <div class=" col-12 col-md-3">
+            <label for="size">Size</label>
+            <input type="text" class="form-control" id="size" placeholder="Inserisci la Dimensione" #size 
+            [value]="currentEditingProduct?.size" required>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="weight">Weight</label>
+            <input type="number" class="form-control" id="weight" placeholder="Inserisci il Peso" 
+            [value]="currentEditingProduct?.weight" #weight required>
+          </div>
+          <div class=" col-12 col-md-6">
+            <label for="productCategoryId">Category</label>
+            <select class="form-control" id="productCategoryId" required #category>
+              <option *ngFor="let option of categoryOptions" [value]="option.productCategoryID">
+                {{ option.name }}</option>
+            </select>
+          </div>
+
+          <div class=" col-12 col-md-6">
+            <label for="productModelId">Model</label>
+            <select class="form-control" id="productModelId" required #model>
+              <option *ngFor="let option of modelOptions" [value]="option.productModelId">{{ option.name }}</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <button (click)="submitEditForm(name.value,color.value, stdCost.valueAsNumber, price.valueAsNumber , 
+            size.value, weight.valueAsNumber,+category.value, +model.value)" class="btn deleteBtns ">Save</button>
+          </div>
+        </div>
       </div>
-      <div >
-        <label for="color">Colore:</label>
-        <input type="text" class="form-control" id="color"  #color required>
+
+      <!-- PRODUCT DELETE -->
+
+      <div *ngIf="showDeleteBox" class="container my-5">
+        <div class="row">
+          <div class="col-11 col-md-10 mx-auto p-5 deletebox">
+
+            <h3>You are going to delete the product: </h3>
+            <p> ID: {{productID}}</p>
+            <p>{{productName}} </p>
+
+            <button class="deleteBtns" (click)="CloseForms()">Cancel</button>
+            <button class="deleteBtns" (click)="DeleteProduct(productID)">Delete</button>
+
+
+
+          </div>
+
+        </div>
+
+
+
       </div>
-      <div >
-        <label for="standardCost">Costo Standard:</label>
-        <input type="number" class="form-control" id="standardCost"  #stdCost >
+
+      <!-- SHOW ERRORS -->
+
+      <div *ngIf="showErrorsLog" class="container">
+
+        <div class="d-flex justify-content-between">
+          <h3>Errors Log</h3>
+          <button (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ErrorID</th>
+              <th scope="col">Class Name</th>
+              <th scope="col">erroreMessaggio</th>
+              <th scope="col">tipologiaErrore</th>
+              <th scope="col">codiceErrore</th>
+              <th scope="col">dataErrore</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let error of errorList">
+              <td>{{error.idErrore}}</td>
+              <td>{{error.nomeClasse}}</td>
+              <td>{{error.erroreMessaggio}}</td>
+              <td>{{error.tipologiaErrore}}</td>
+              <td>{{error.codiceErrore}}</td>
+              <td>{{error.dataErrore}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
       </div>
-      <div >
-        <label for="listPrice">Prezzo di Listino:</label>
-        <input type="number" class="form-control" id="listPrice"  #price >
-      </div>
-      <div class="form-group">
-        <label for="size">Dimensione:</label>
-        <input type="text" class="form-control" id="size" placeholder="Inserisci la Dimensione" #size required>
-      </div>
-      <div class="form-group">
-        <label for="weight">Peso:</label>
-        <input type="number" class="form-control" id="weight" placeholder="Inserisci il Peso" #weight required>
-      </div>
-      <div class="form-group">
-        <label for="productCategoryId">Categoria Prodotto:</label>
-        <select class="form-control" id="productCategoryId" required #category>
-            <option *ngFor="let option of categoryOptions" [value]="option.productCategoryID">
-              {{ option.name }}</option>
-        </select>
+
     </div>
-  
-    <div class="form-group">
-        <label for="productModelId">Modello Prodotto:</label>
-        <select class="form-control" id="productModelId" required #model>
-            <option *ngFor="let option of modelOptions" [value]="option.productModelId">{{ option.name }}</option>
-        </select>
-    </div>
-      <button (click)="submitEditForm(name.value,color.value, stdCost.valueAsNumber, price.valueAsNumber , 
-      size.value, weight.valueAsNumber,+category.value, +model.value)"
-                                class="btn btn-primary">Crea Prodotto</button>
-    </form>
+
   </div>
 </div>
 
-<div *ngIf="denegatedAccess">
 
 
-403 FORBIDDEN
+
+<div *ngIf="denegatedAccess" class="container">
+<img src="../../../assets/media/403.png" alt="403" class="img-fluid">
+
+
 </div>

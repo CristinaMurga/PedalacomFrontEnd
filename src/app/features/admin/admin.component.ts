@@ -7,6 +7,7 @@ import { Category } from '../../shared/modelsdata/Category';
 import { Model } from '../../shared/modelsdata/Models';
 import { LoginComponent } from '../../core/login/login.component';
 import { Customer } from '../../shared/modelsdata/Customer';
+import { Errori } from '../../shared/modelsdata/Errori';
 
 @Component({
   selector: 'app-admin',
@@ -27,6 +28,7 @@ export class AdminComponent {
 
   user: Customer = new Customer()
 
+  errorList: Errori[] = [];
 
   filteredProductList: Product[] = []; // Add this line
   searchTerm: string = '';
@@ -37,6 +39,8 @@ export class AdminComponent {
   model: Model = new Model();
   modelOptions: Model[] = [];
 
+
+  showErrorsLog: boolean = false
   sameName: boolean = false;
   showClseBtn: boolean = false;
   showProducts: boolean = true;
@@ -45,14 +49,22 @@ export class AdminComponent {
   showDeleteBox: boolean = false;
   content: boolean = false;
   denegatedAccess: boolean = true;
+  successMsg = false;
+  errorMsg = false;
+
   productID:number = 0;
+  productName: string = '';
+  currentEditingProduct: Product | null = null;
+
+  errorBtn: boolean =  true;
   
 
   constructor(private ws: AdminService) { }
 
   ngOnInit(){
-    this.getProducts();
     this.VerifyAdmin();
+    this.getProducts();
+   
   }
 
   VerifyAdmin() {
@@ -76,6 +88,7 @@ export class AdminComponent {
         this.productList = data
         // Initialize the filtered list with all products
         this.filteredProductList = [...this.productList];
+     
       },
       error: (err: any) => {
         console.log(err)
@@ -125,8 +138,8 @@ export class AdminComponent {
       
     this.ws.addProducts(this.newProduct).subscribe({
       next:(data: Product)=> {
-        console.log(data);
-        console.log('Inserimento Prodotto, avvenuto con successo!');
+        this.getProducts()
+        this.CloseForms();
       },
       error: (err: any) => {
         console.log(err);
@@ -138,8 +151,11 @@ export class AdminComponent {
   OpenEditForm(id:number, product: Product) {
     this.productID = id;
     this.product = product
+    this.currentEditingProduct = {...product}
     this.showProducts = false;
     this.showEditForm = true;
+    this.errorBtn = false;
+    this.showErrorsLog= false;
     console.log(this.productID)
        //Chiamo categories
        this.ws.GetCategories().subscribe({
@@ -165,12 +181,12 @@ export class AdminComponent {
       })
   }
 
-
-  
   OpenCreateFrom(){
     this.showCreateform = true;
     this.showProducts = false
     this.showClseBtn = true;
+    this.errorBtn = false;
+    this.showErrorsLog= false;
 
     //Chiamo categories
     this.ws.GetCategories().subscribe({
@@ -204,17 +220,26 @@ export class AdminComponent {
     this.showClseBtn = false;
     this.showEditForm = false;
     this.showDeleteBox = false;
+    this.errorBtn = true;
+    this.showErrorsLog= false;
   }
 
-  OpenDeleteBox(id: number) {
+  OpenDeleteBox(id: number, name: string) {
+    this.productID = id;
+    this.productName = name;
+    
+    this.errorBtn = false;
+    this.showErrorsLog= false;
      this.showDeleteBox = true
      this.showProducts = false; 
+
   }
 
   DeleteProduct(id: number): void {
     this.ws.DeleteProduct(id).subscribe({
       next: (data: any) =>{
-        console.log('Delete succesfully');
+        this.getProducts()
+        this.CloseForms();
       },
       error: (err: any) => {
         console.log(err)
@@ -222,42 +247,32 @@ export class AdminComponent {
     })
   }
 
-  // EditProduct(name: string, colore: string, standarCost: number, listinoPrice: number, misura: string, peso: number,
-  //   categoryId: number, modelId: number){
-     
+  submitEditForm(name: string, color: string, standardCost: number, price: number, size: string, 
+    weight: number, category: number, model: number) {
 
-  //     this.updatedProduct = {
-  //       productId: this.productID,
-  //       name: name , 
-  //       productNumber: 'LH3459',
-  //       color : colore, 
-  //       standardCost:standarCost,
-  //       listPrice: listinoPrice, 
-  //       size: misura,
-  //       weight: peso, 
-  //       productCategoryId: categoryId, 
-  //       productModelId: modelId,  
-  //       sellStartDate: new Date(),
-  //       sellEndDate: new Date(),
-  //       discontinuedDate: new Date(),
-  //       thumbNailPhoto: '',
-  //       thumbNailPhotoFileName: '',
-  //       rowguid: '3fa85f64-5717-4562-b3fc-2c963f66afa1',
-  //       modifiedDate: new Date(),
-  //     }
+      if(name == '' || name == null){
+        name = this.product.name
+      }
+
+      if(color == '' || color == null){
+        color = this.product.color
+      }
+
+      if(standardCost == 0 || standardCost == null){
+        standardCost = this.product.standardCost
+      }
+
+      if(price == 0 || price == null){
+        price = this.product.listPrice
+      }
       
-  //   this.ws.EditProduct(this.productID, this.updatedProduct).subscribe({
-  //     next: (data: Product) => {
-  //       console.log('Edit success')
-  //     },
-  //     error: (err: any) => {
-  //       console.error(err);
-        
-  //     }
-  //   })
-  // }
+      if(size == '' || size == null){
+        size = this.product.size
+      }
+      if(weight == 0 || weight == null){
+        weight = this.product.weight
+      }
 
-  submitEditForm(name: string, color: string, standardCost: number, price: number, size: string, weight: number, category: number, model: number) {
     this.updatedProduct = {
       productId: this.productID,
       name: name,
@@ -280,8 +295,8 @@ export class AdminComponent {
 
     this.ws.EditProduct(this.productID, this.updatedProduct).subscribe({
       next: (data: Product) => {
-        console.log(data);
-        console.log('Product updated successfully');
+        this.getProducts()
+        this.CloseForms();
       }, error: (err: any) => {
         console.log('Error creating product:', err);
         if (err.error && err.error.errors) {
@@ -293,6 +308,20 @@ export class AdminComponent {
 
     })
 
+  }
+
+  getErrors(){
+    this.ws.GetErrors().subscribe({
+      next:( data: Errori[]) => {
+        this.errorList = data;
+       this.showErrorsLog = true
+       this.showProducts = false
+       this.errorBtn = false;
+      },
+      error: (err:any) =>{
+        console.log(err)
+      }
+    })
   }
 
 }

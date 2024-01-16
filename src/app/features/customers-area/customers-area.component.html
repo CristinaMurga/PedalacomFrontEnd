@@ -1,197 +1,205 @@
-<div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
-    <button class="menubtn" (click)="OpenPersonalInfoBox()">Personal Information</button>
-    <button class="menubtn" (click)="GetCustomerAddress(addressID)">Address </button>
-    <button class="menubtn" (click)="OpenPwdBox()">Change Password</button>
-    <button class="menubtn" (click)="GetOrders(orderSalesID)">Orders</button>
-</div>
+<div *ngIf="access">
 
-<div class="container my-5">
-    <div class="row">
-        <h2 class="mb-4">Welcome to your personal area!</h2>
-        <div class="col-12 col-lg-6 mx-auto">
-
-
-            <!-- PERSONAL INFO -->
-            <div *ngIf="showPersonalInfo" class="prsDataBx p-3 h-100">
-                <div class="col-12 col-md-10 px-md-5 p-lg-5">
-
-                    <h3>Personal Information <button (click)="OpenModifyData()"><i
-                                class="bi bi-pencil-fill edit"></i></button> </h3>
-
-
-                    <p class="mt-2 m-0">Name: {{user.firstName}} </p>
-                    <p class="m-0">LastName: {{user.lastName}}</p>
-                    <p class="m-0">Email: {{user.emailAddress}}</p>
-                    <p class="m-0">Phone: {{user.phone}}</p>
-
-
-                    <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>Data has been successfully
-                        saved</p>
-                    <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>Data has not been saved. Try again
-                    </p>
-                </div>
-            </div>
-            <!-- ADDRESS -->
-            <div *ngIf="showAddressBox" class="prsDataBx p-3 h-100">
-                <div class="col-12 col-md-10 px-md-5 p-lg-5">
-
-                    <h3>Your Address<button (click)="OpenModifyAddress()">
-                            <i class="bi bi-pencil-fill edit"></i></button> </h3>
-
-
-                    <p class="mt-2 m-0">{{userAddress.addressLine1}}</p>
-                    <p class="m-0" *ngIf="showAddress2">{{userAddress.addressLine2}}</p>
-                    <p class="m-0">{{userAddress.city}}</p>
-                    <p class="m-0">{{userAddress.stateProvince}}</p>
-                    <p class="m-0">{{userAddress.postalCode}}</p>
-                    <p class="m-0">{{userAddress.countryRegion}}</p>
-
-
-                    <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>Data has been successfully
-                        saved</p>
-                    <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>Data has not been saved. Try again
-                    </p>
-                </div>
-            </div>
-            <!-- NO  ADDRESS -->
-            <div *ngIf="noAddress" class="prsDataBx p-3 h-100">
-                <div class="col-12 col-md-10 mx-auto p-5">
-
-                    <h3 class="noAddr">You have not saved any address</h3>
-                </div>
-            </div>
-
-            <!-- CHANGE PASSWORD -->
-
-            <div *ngIf="showChagePwd" class="prsDataBx p-3 h-100">
-                <div class="col-12 col-lg-10 mx-auto px-md-5 p-lg-3">
-
-                    <h3>Change Password</h3>
-                    <input class="hide" type="text" id="name" #name>
-                    <input class="hide" type="text" id="lastName" #lastName>
-                    <input class="hide" type="text" id="phone" #phone>
-
-                    <label for="password" class="mt-2">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required #pwd>
-
-                    <label for="chkpwd" class="mt-2">Check Password</label>
-                    <input type="password" class="form-control" id="chkpwd" name="chkpwd" required #chppwd>
-
-
-                    <div class="row">
-                        <div class="col-12 mt-3 text-end">
-                            <button type="button" class="submitBtn h-100"
-                                (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value,chppwd.value)">Change
-                                password
-                            </button>
-                        </div>
+    <div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
+        <button class="menubtn" (click)="OpenPersonalInfoBox()">Personal Information</button>
+        <button class="menubtn" (click)="GetCustomerAddress(addressID)">Address </button>
+        <button class="menubtn" (click)="OpenPwdBox()">Change Password</button>
+        <!-- <button class="menubtn" (click)="GetOrders(orderSalesID)">Orders</button> -->
+    </div>
+    
+    <div class="container my-5">
+        <div class="row">
+            <h2 class="mb-4">Welcome to your personal area!</h2>
+            <div class="col-12 col-lg-6 mx-auto">
+    
+    
+                <!-- PERSONAL INFO -->
+                <div *ngIf="showPersonalInfo" class="prsDataBx p-3 h-100">
+                    <div class="col-12 col-md-10 px-md-5 p-lg-5">
+    
+                        <h3>Personal Information <button (click)="OpenModifyData()"><i
+                                    class="bi bi-pencil-fill edit"></i></button> </h3>
+    
+    
+                        <p class="mt-2 m-0">Name: {{user.firstName}} </p>
+                        <p class="m-0">LastName: {{user.lastName}}</p>
+                        <p class="m-0">Email: {{user.emailAddress}}</p>
+                        <p class="m-0">Phone: {{user.phone}}</p>
+    
+    
+                        <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>Data has been successfully
+                            saved</p>
+                        <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>Data has not been saved. Try again
+                        </p>
                     </div>
-
-
-                    <p *ngIf="failckPwd" class="formMessage"><i class="bi bi-x-lg"></i>
-                        Password do not match</p>
-                    <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>
-                        Data has been successfully saved</p>
-                    <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>
-                        Data has not been saved. Try again</p>
                 </div>
-            </div>
-
-            <!-- NO ORDERS -->
-            <div *ngIf="noOrders" class="prsDataBx p-3 h-100">
-                <div class="col-12 col-md-10 mx-auto p-5">
-
-                    <h3 class="noAddr">You have not orders yet</h3>
+                <!-- ADDRESS -->
+                <div *ngIf="showAddressBox" class="prsDataBx p-3 h-100">
+                    <div class="col-12 col-md-10 px-md-5 p-lg-5">
+    
+                        <h3>Your Address</h3>
+    
+    
+                        <p class="mt-2 m-0">{{userAddress.addressLine1}}</p>
+                        <p class="m-0" *ngIf="showAddress2">{{userAddress.addressLine2}}</p>
+                        <p class="m-0">{{userAddress.city}}</p>
+                        <p class="m-0">{{userAddress.stateProvince}}</p>
+                        <p class="m-0">{{userAddress.postalCode}}</p>
+                        <p class="m-0">{{userAddress.countryRegion}}</p>
+    
+    
+                        <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>Data has been successfully
+                            saved</p>
+                        <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>Data has not been saved. Try again
+                        </p>
+                    </div>
                 </div>
+                <!-- NO  ADDRESS -->
+                <div *ngIf="noAddress" class="prsDataBx p-3 h-100">
+                    <div class="col-12 col-md-10 mx-auto p-5">
+    
+                        <h3 class="noAddr">You have not saved any address</h3>
+                    </div>
+                </div>
+    
+                <!-- CHANGE PASSWORD -->
+    
+                <div *ngIf="showChagePwd" class="prsDataBx p-3 h-100">
+                    <div class="col-12 col-lg-10 mx-auto px-md-5 p-lg-3">
+    
+                        <h3>Change Password</h3>
+                        <input class="hide" type="text" id="name" #name>
+                        <input class="hide" type="text" id="lastName" #lastName>
+                        <input class="hide" type="text" id="phone" #phone>
+    
+                        <label for="password" class="mt-2">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required #pwd>
+    
+                        <label for="chkpwd" class="mt-2">Check Password</label>
+                        <input type="password" class="form-control" id="chkpwd" name="chkpwd" required #chppwd>
+    
+    
+                        <div class="row">
+                            <div class="col-12 mt-3 text-end">
+                                <button type="button" class="submitBtn h-100"
+                                    (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value,chppwd.value)">Change
+                                    password
+                                </button>
+                            </div>
+                        </div>
+    
+    
+                        <p *ngIf="failckPwd" class="formMessage"><i class="bi bi-x-lg"></i>
+                            Password do not match</p>
+                        <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>
+                            Data has been successfully saved</p>
+                        <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>
+                            Data has not been saved. Try again</p>
+                    </div>
+                </div>
+    
+                <!-- NO ORDERS -->
+                <div *ngIf="noOrders" class="prsDataBx p-3 h-100">
+                    <div class="col-12 col-md-10 mx-auto p-5">
+    
+                        <h3 class="noAddr">You have not orders yet</h3>
+                    </div>
+                </div>
+    
             </div>
-
+            <div class="col-12 col-lg-6 mx-auto">
+                <img src="../../../assets/media/custArea.jpg" class="img-fluid" alt="personalArea">
+            </div>
+    
         </div>
-        <div class="col-12 col-lg-6 mx-auto">
-            <img src="../../../assets/media/custArea.jpg" class="img-fluid" alt="personalArea">
-        </div>
-
     </div>
+    
+    
+    <div class="container">
+        <!-- PERSONAL DATA FORM -->
+        <div class="row" *ngIf="showDataForm">
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="d-flex justify-content-between">
+                    <h3>Modify Data</h3>
+                    <button (click)="CloseModiFyData()"><i class="bi bi-x-lg"></i></button>
+                </div>
+    
+    
+                <label for="name">Name</label>
+                <input class="form-control" type="text" id="name" #name>
+    
+                <label for="lastName">Last Name</label>
+                <input class="form-control" type="text" id="lastName" #lastName>
+    
+                <label for="phone">Phone Number</label>
+                <input class="form-control" type="text" id="phone" #phone>
+    
+                <input type="password" class="hide" id="password" name="password" required #pwd>
+                <input type="password" class="hide" id="chkpwd" name="chkpwd" required #chppwd>
+    
+                <div class="row">
+                    <div class="col-12 mt-3 text-end">
+                        <button type="button" class="submitBtn h-100"
+                            (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value,chppwd.value)">Change
+                            password
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- ADDRESS FORM -->
+        <!-- <div class="row" *ngIf="showAddrForm">
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="d-flex justify-content-between">
+                    <h3>Modify Address</h3>
+                    <button (click)="CloseModiFyAddr()"><i class="bi bi-x-lg"></i></button>
+                </div>
+    
+    
+                <label for="addr1">Address</label>
+                <input class="form-control" type="text" id="addr1" #addr1>
+    
+                <div *ngIf="showAddress2">
+                    <label for="addr2">Address2</label>
+                    <input class="form-control" type="text" id="addr2" #addr2>
+                </div>
+    
+                <label for="city">City</label>
+                <input class="form-control" type="text" id="city" #city>
+    
+                <label for="state">State /Province </label>
+                <input class="form-control" type="text" id="state" #state>
+    
+                <label for="pd">Postal Code </label>
+                <input class="form-control" type="text" id="pd" #pd>
+    
+                <label for="cuontry">Country / Region </label>
+                <input class="form-control" type="text" id="cuontry" #country>
+    
+                <div class="row">
+                    <div class="col-12 mt-3 text-end">
+                        <button type="button" class="submitBtn h-100"> Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    
+        <div *ngIf="showOrders">
+    
+            <p>ORDER NUMBER: {{orderSalesID}}</p>
+    
+            <ul>
+                <li *ngFor="let order of customerOrdersList ">
+                    order Qty :{{order.orderQty}} - Product ID{{order.productId}}
+                    - unitPrice {{order.unitPrice}}</li>
+            </ul>
+        </div>
+
 </div>
-
-
-<div class="container">
-    <!-- PERSONAL DATA FORM -->
-    <div class="row" *ngIf="showDataForm">
-        <div class="col-12 col-md-8 mx-auto">
-            <div class="d-flex justify-content-between">
-                <h3>Modify Data</h3>
-                <button (click)="CloseModiFyData()"><i class="bi bi-x-lg"></i></button>
-            </div>
-
-
-            <label for="name">Name</label>
-            <input class="form-control" type="text" id="name" #name>
-
-            <label for="lastName">Last Name</label>
-            <input class="form-control" type="text" id="lastName" #lastName>
-
-            <label for="phone">Phone Number</label>
-            <input class="form-control" type="text" id="phone" #phone>
-
-            <input type="password" class="hide" id="password" name="password" required #pwd>
-            <input type="password" class="hide" id="chkpwd" name="chkpwd" required #chppwd>
-
-            <div class="row">
-                <div class="col-12 mt-3 text-end">
-                    <button type="button" class="submitBtn h-100"
-                        (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value,chppwd.value)">Change
-                        password
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ADDRESS FORM -->
-    <div class="row" *ngIf="showAddrForm">
-        <div class="col-12 col-md-8 mx-auto">
-            <div class="d-flex justify-content-between">
-                <h3>Modify Address</h3>
-                <button (click)="CloseModiFyAddr()"><i class="bi bi-x-lg"></i></button>
-            </div>
-
-
-            <label for="addr1">Address</label>
-            <input class="form-control" type="text" id="addr1" #addr1>
-
-            <div *ngIf="showAddress2">
-                <label for="addr2">Address2</label>
-                <input class="form-control" type="text" id="addr2" #addr2>
-            </div>
-
-            <label for="city">City</label>
-            <input class="form-control" type="text" id="city" #city>
-
-            <label for="state">State /Province </label>
-            <input class="form-control" type="text" id="state" #state>
-
-            <label for="pd">Postal Code </label>
-            <input class="form-control" type="text" id="pd" #pd>
-
-            <label for="cuontry">Country / Region </label>
-            <input class="form-control" type="text" id="cuontry" #country>
-
-            <div class="row">
-                <div class="col-12 mt-3 text-end">
-                    <button type="button" class="submitBtn h-100"> Save
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="showOrders">
-
-        <p>ORDER NUMBER: {{orderSalesID}}</p>
-
-        <ul>
-            <li *ngFor="let order of customerOrdersList ">
-                order Qty :{{order.orderQty}} - Product ID{{order.productId}}
-                - unitPrice {{order.unitPrice}}</li>
-        </ul>
+<div *ngIf="denegatedAccess" class="container">
+    <img src="../../../assets/media/403.png" alt="403" class="img-fluid">
+    
+    
     </div>

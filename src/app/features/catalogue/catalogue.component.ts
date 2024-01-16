@@ -6,7 +6,7 @@ import { CategoryChild } from '../../shared/modelsdata/CategoryChild';
 import { PreviewProduct} from '../../shared/modelsdata/PreviewProduct'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Product } from '../../shared/modelsdata/product';
+
 
 @Component({
   selector: 'app-catalogue',
@@ -28,10 +28,11 @@ export class CatalogueComponent {
   
   previewProductsList: PreviewProduct[] = []
 
-  allproductsList: Product[]= [];
-  filteredProductList: Product[] = []; 
+  allproductsList: PreviewProduct[]= [];
+  filteredProductList: PreviewProduct[] = []; 
   searchTerm: string = '';
 
+  defaultImg = '../../../assets/media/fotoCard.jpg'
   noProducts: boolean = false;
   showAllProducts: boolean = true;
   showCategoriesChild: boolean = false;
@@ -85,32 +86,62 @@ export class CatalogueComponent {
     this.showCategoriesChild = !this.showCategoriesChild;
   }
 
-  //Codice relativo a Previewed Products
+  //Codice relativo a Previewed Products che otteniamo da category child id
 
   getPreviewProducts(productCategoryID:number, categoryName: string){
 
     this.categoryName = categoryName;
     this.ws.getPreviewProducts(productCategoryID).subscribe({
       next: (data: PreviewProduct[]) => {
-       
         this.previewProductsList = data;
+      this.previewProductsList.forEach(prod => {
+       this.getImages(prod.productId, prod)
+        
+      });
+      this.noProducts= false;
         this.showAllProducts = false;
         this.showProducts = true
-      }
+      },
+      error:(err: any) =>
+      {
+        console.log(err);
+      }    
     })
   }
 
+  getImages(productId: number, prod: any): void {
+    this.ws.getImages(productId).subscribe({
+      next: (imagesArray: any[]) => {
+        if (imagesArray.length > 0) {
+          const firstImage = imagesArray[0];
+          if (firstImage.thumbnailPhotoFileName === 'no_image_available_small.gif' 
+          || firstImage.thumbnailPhotoFileName === null || firstImage.thumbnailPhotoFileName ==='') {
+            prod.base64Image = this.defaultImg;
+          } else {
+            const base64Image = `data:image/png;base64,${firstImage.thumbNailPhoto}`;
+            prod.base64Image = base64Image;
+          }
+        } else {
+          console.log('No images available');
+        }
+      },
+      error: (err: any) => {
+        console.error(err);
+      }
+    });
+  }
 
   liveSearch() {
     // Filter products based on the entered search term for the name
     this.filteredProductList = this.allproductsList.filter(product =>
-      product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      product.product.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
     if(this.filteredProductList.length == 0){
       this.noProducts = true;
       this.foundProducts = false;
     }else {
+   
       this.noProducts = false;
       this.foundProducts = true;
     }
@@ -119,13 +150,16 @@ export class CatalogueComponent {
   goToProductDetails(id: number){
     this.router.navigate(['/product', id])
   }
-
-  getProducts() {
+ // preview di tutti i prodotti
+   getProducts() {
     this.ws.getProducts().subscribe({
-        next: (data: Product[]) => {
+        next: (data: PreviewProduct[]) => {
           this.allproductsList = data;
           // Initialize the filtered list with all products
           this.filteredProductList = [...this.allproductsList];
+          this.filteredProductList.forEach(prod => {
+            this.getImages(prod.productId, prod)
+           });
         },
       error: (err: any) => {
         console.log(err)

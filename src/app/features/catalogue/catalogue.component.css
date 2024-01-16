@@ -45,9 +45,9 @@ a{
     border: 0.4px solid  grey;
     font-family: 'Saira Extra Condensed', sans-serif;
     height: 100%;
+    width: 100%;
     background-color: transparent;
     color: #FF9238 ;
-    
 }
 
 input {
@@ -63,3 +63,11 @@ h3 , h2 {
 
 }
 
+.prodimg{
+    height: 100px;
+}
+.nameBox {
+    padding-top: 20px;
+    height: 60px;
+    font-size: 24px;
+}

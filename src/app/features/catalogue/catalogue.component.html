@@ -1,3 +1,4 @@
+<!-- MENU-->
 <div class=" py-2 container-fluid d-flex justify-content-around flex-wrap categoryParentnav ">
   <button class="categoryParentbtn" (click)="allProducts()">All Products</button>
   <button class="categoryParentbtn" *ngFor="let categoryParent of categoryParentsList"
@@ -15,13 +16,15 @@
     </div>
   </div>
 </div>
+
+<!-- PRODUCTS BY CATEGORY -->
 <div class="container" *ngIf="showProducts">
   <div class="row">
     <h3 class="mt-4">All products from {{categoryName}}</h3>
     <div class="col-12 col-sm-6 col-lg-3 mt-4 " *ngFor="let previewProduct of previewProductsList">
     
       <button class="productBox mt-3 p-2" (click)="goToProductDetails(previewProduct.productId)">
-        <img src="../../../assets/media/fotoCard.jpg" alt="preview-picture" class="img-fluid">
+        <img [src]="previewProduct.base64Image" alt="preview-picture" class="img-fluid prodimg">
         <h3 class="px-2 mt-2"> {{previewProduct.product}} </h3>
       </button>
 
@@ -29,6 +32,7 @@
   </div>
 </div>
 
+<!--  ALL PRODUCTS -->
 <div class="container" *ngIf="showAllProducts">
   <div class="row">
     <h3 class="mt-4" >All products</h3>
@@ -38,13 +42,16 @@
     </div>
   </div>
 
+
   <div class="row" *ngIf="foundProducts">
 
     <div class="col-12 col-sm-6 col-lg-3 mt-4 " *ngFor="let product of filteredProductList">
       <button class="productBox mt-3 p-2" (click)="goToProductDetails(product.productId)">
-        <img src="../../../assets/media/fotoCard.jpg" alt="preview-picture" class="img-fluid">
-        <h3 class="px-2 mt-2"> {{product.name}} </h3>
-        <button><i class="bi bi-cart-fill"></i></button>
+      
+          <img [src]="product.base64Image" alt="preview-picture" class="img-fluid prodimg">
+          <h3 class="px-2 mt-2 nameBox"> {{product.product}} </h3>
+     
+     
       </button>
 
     </div>

@@ -48,10 +48,7 @@ export class AdminService {
     this.headerOptions = this.headerOptions.set('Authorization', 'Basic ' + token);
 
     return this.http.put(`https://localhost:7020/api/Products/${id}`, product, {headers: this.headerOptions});
-
   }
-
-
 
   GetCategories(): Observable<any> {
     return this.http.get('https://localhost:7020/api/CategoryChilds')
@@ -59,6 +56,13 @@ export class AdminService {
 
   GetModels(): Observable<any> {
     return this.http.get('https://localhost:7020/api/Models')
+  }
+
+  GetErrors(): Observable<any> {
+    const token = sessionStorage.getItem('token');
+
+    this.headerOptions = this.headerOptions.set('Authorization', 'Basic ' + token);
+    return this.http.get(`https://localhost:7020/api/Errors`, {headers: this.headerOptions})
   }
 
 }

@@ -1,18 +1,18 @@
-<div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
+<!-- <div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
     <button class="menubtn" routerLink="/catalogue" routerLinkActive="true">Catalogue</button>
     <button class="menubtn"> <a href="#Philosophy" >Our Philosophy</a></button>
     <button class="menubtn">Contact Us</button>
     <button class="menubtn">Recensioni</button>
-</div>
+</div> -->
 
 <div class="container  box mt-5 ps-md-4">
     <h3 class="name mt-5 ps-3">{{productDescription.product}}</h3>
     <div class="row">
 
         <div class="ps-4 col-12 col-md-5">
-            <img src="../../../assets/media/fotoCard.jpg" class="img-fluid" alt="">
+            <img [src]="productDescription.base64Image"  class="img-fluid w-100 v-100 py-5" alt="">
         </div>
-        <div class="col-12 col-md-7 p-sm-4 pt-sm-2 ps-md-3 pt-lg-5 p-md-3 pe-md-5 descriptionBox">
+        <div class="col-12 col-md-7 p-sm-4 pt-sm-2 ps-5 pt-lg-5 p-md-3 pe-md-5 descriptionBox">
             <div class=" m-0 d-flex">
                 <p *ngIf="showColor" >Color: {{productDescription.color}} </p>
                 <p *ngIf="showColor" class="colorbox" [ngStyle]="{'background-color':retornarColor()}"></p>
@@ -21,7 +21,12 @@
             <p *ngIf="showWeight" class="pb-lg-3"> Weight: {{productDescription.weight}} gr </p>
             <p *ngIf="showPrice" class="pb-lg-3">Price: ${{productDescription.listPrice}} USD </p>
             <p *ngIf="showDescription" class="pb-lg-3 descText"> {{productDescription.description}}</p>
-    
+
+            <button class="btn"
+                (click)="AddCart(productDescription.productID,  productDescription.product, productDescription.listPrice)">
+                Add to the cart <i class="bi bi-cart-fill"></i></button>
+
+                <p *ngIf="successMsg" class="okMessage"><i class="bi bi-check"></i> Added to the cart</p>
         </div>
    
     </div>

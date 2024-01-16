@@ -1,0 +1,47 @@
+
+*{
+    font-family: 'Saira Extra Condensed', sans-serif;
+}
+button {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    background-color: transparent;
+    color: #FF9238;
+    border: none;
+    font-size: 20px;
+
+}
+
+
+h3  {
+  
+    font-size: 30px;
+    font-weight: 500;
+    color: #FF9238;
+
+}
+
+input, select {
+    border-radius: 0%;
+    border: 1px solid gray;
+}
+
+.deleteBtns{
+    margin-top: 20px;
+    margin-right:10px ;
+    border-radius: 0%;
+    background-color: #FF9238;
+    font-size: 19px;
+    
+    color: black;
+}
+.deletebox{
+    border: 0.4px solid  grey;
+    box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+}
+
+p{
+    font-size: 19px;
+    margin: 10px
+}

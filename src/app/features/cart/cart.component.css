@@ -1,0 +1,26 @@
+ h2 {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: #FF9238;
+
+}
+
+.btnCatalogue{
+    color: #39A7FF;
+ 
+}
+
+.cartBox{
+    margin-bottom: 300px;
+
+}
+button {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    background-color: transparent;
+    color: #FF9238;
+    border: none;
+    font-size: 20px;
+
+}
+

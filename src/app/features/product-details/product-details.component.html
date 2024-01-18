@@ -6,7 +6,11 @@
 </div> -->
 
 <div class="container  box mt-5 ps-md-4">
-    <h3 class="name mt-5 ps-3">{{productDescription.product}}</h3>
+    <div class="d-flex justify-content-between">
+        <h3 class="name mt-5 ps-3">{{productDescription.product}}</h3>
+        <button class="btnBack m-5" (click)="goBack()">Go back</button>
+    </div>
+
     <div class="row">
 
         <div class="ps-4 col-12 col-md-5">

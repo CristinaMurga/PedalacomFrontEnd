@@ -35,7 +35,7 @@ a {
     box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
     -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
     -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
-    border: 0.4px solid  grey;
+  
 }
 .colorbox{
     height: 20px;
@@ -61,6 +61,16 @@ button{
     font-size: 20px;
 }
 
+.btnBack{
+    background-color: transparent;
+    border: none;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    border-bottom: white solid 2px;
+    color: #FF9238;
+}
+.btnBack:hover{
+    border-bottom: #FF9238 solid 2px;
+}
 @media only screen and (max-width: 991px) 
 {
     .box {

@@ -17,14 +17,16 @@ export class CartComponent {
 
 userName = sessionStorage.getItem('userName');
   
-  constructor(private ws: CartService, private prodDett: ProductDetailsService,
+  constructor(private ws: CartService,
     private router: Router ){}
   
   cartItem: Cart = new Cart()
   cartList: Cart[] = []
+  total: number = 0;
 
   productsDetails: DetailedProduct = new DetailedProduct()
   productList : DetailedProduct[]=[]
+
 
   noitems: boolean = true;
   items:boolean = false;
@@ -41,16 +43,15 @@ userName = sessionStorage.getItem('userName');
     this.ws.getCart(userName).subscribe({
       next: (data: Cart[]) => {
         this.cartList = data;
-        console.log(this.cartList);
         if(this.cartList.length == 0){
           this.noitems = true;
           this.items = false;
         }else{
           this.items= true
           this.noitems= false;
+          this.calculateTotal()
         }
-        console.log('no items',this.noitems)
-        console.log('items' ,this.items)
+
       
       },
       error:(err: Response) =>{
@@ -66,11 +67,8 @@ userName = sessionStorage.getItem('userName');
   deleteItem(cartid: number){
     this.ws.deleteProductfromCart(cartid).subscribe({
       next: (data:any)=>{
-        console.log('item cancellato');
-        
-        this.ShowCart(this.userName)
 
-        
+        this.ShowCart(this.userName)
       },
       error:(err:any)=>{
         console.log(err)
@@ -88,6 +86,13 @@ userName = sessionStorage.getItem('userName');
     this.router.navigate(['/catalogue']);
   }
 
+  goToProductDetails(id: number){
+    this.router.navigate(['/product', id])
+  }
+
+  calculateTotal() {
+    this.total = this.cartList.reduce((total, item) => total + item.listPrice, 0);
+  }
 
 
 }

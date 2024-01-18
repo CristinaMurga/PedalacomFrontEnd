@@ -24,14 +24,13 @@ export class NavbarComponent {
   constructor(private login: LoginService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
-    console.log('NavbarComponent ngOnInit');
+  
     this.login.isUserLoggedIn$.subscribe((value) => {
-      console.log('Valore in navbar:', value);
       this.isUserLoggedIn = value;
       this.cdr.detectChanges();
 
       if(sessionStorage.getItem(this.login.userName) == 'admin@admin.com'){
-        console.log('navbar, admin')
+
         this.isAdminLogged = true;
         this.showLogOut = true;
         this.showlogin = false;

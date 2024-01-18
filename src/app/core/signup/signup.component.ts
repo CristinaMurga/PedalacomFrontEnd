@@ -15,31 +15,34 @@ import { LoginService } from '../../shared/services/login.service';
 })
 export class SigninComponent {
 
+
+  constructor(private ws: SingupService, private router: Router, private login: LoginService) { }
+  //per messaggi di errore o successo nei forms
   errorPwd: boolean = false;
   errorMandatory: boolean = false;
   noCreated: boolean = false;
-  errorMail : boolean = false;
-  checkCustomer : Customer = new Customer();
+  errorMail: boolean = false;
+
+  checkCustomer: Customer = new Customer();
   newCustomer: Customer = new Customer();
 
-  constructor(private ws: SingupService, private router: Router, private login: LoginService) { }
-
+  //metodo per inserire utente nuovo
   InsertNewCustomer(name: string, lastName: string, email: string,
     phone: string, tmpPassword: string, chckPsw: string) {
 
-   
-    if(name === ''|| lastName == '' || email == '' || tmpPassword == '' || chckPsw == '' ){
+    this.verifyEmail(email); // se non ci sono errori nel form verifico che l'email non sia già esistente 
+
+    //controlli dei form
+    if (name === '' || lastName == '' || email == '' || tmpPassword == '' || chckPsw == '') {
       this.errorMandatory = true;
-    } else{
+    } else {
       if (chckPsw != tmpPassword) {
         this.errorPwd = true;
         this.errorMandatory = false;
-      } else if(chckPsw == tmpPassword){
-       
-        this.errorPwd= false;
-        this.verifyEmail(email);
+      } else if (chckPsw == tmpPassword) {
+        this.errorPwd = false;
 
-  
+        //inserisco dati dal form
         this.newCustomer = {
           customerID: 0,
           nameStyle: true,
@@ -61,38 +64,40 @@ export class SigninComponent {
           customerAddresses: [],
           salesOrderHeaders: []
         }
-
+        //chiamo il metodo post del sign up service per salvare i dati 
         this.ws.PostCustomer(this.newCustomer).subscribe({
           next: (data: any) => {
-            this.errorMandatory= false;
+            this.errorMandatory = false;
             this.errorPwd = false;
-            this.redirectLogin();
-            
+            this.redirectLogin();// si è andato tutto ok faccio redirect al login
           },
           error: (err: any) => {
-           this.noCreated = true;
+            this.noCreated = true;
           },
         })
       }
-
     }
   }
 
-  redirectLogin(){
+  //mi porta alla home
+  redirectLogin() {
     this.router.navigate(['/log-in']);
   }
 
-  verifyEmail(email: string){
+  //verifico che l'email del utente non sia già registrata
+  verifyEmail(email: string) {
     this.login.getCustomersEmail(email).subscribe({
       next: (data: Customer) => {
         this.checkCustomer = data;
-        if(this.checkCustomer.customerID != 0){
+        if (this.checkCustomer.customerID != 0) {
           this.errorMail = true
-          return;
+    
+        }else{
+          this.errorMail = false;
         }
-        
+
       },
-      error: (err: any) =>{
+      error: (err: any) => {
         console.log(err)
       }
     })

@@ -111,14 +111,11 @@ export class CustomersAreaComponent {
       customerAddresses: [],
       salesOrderHeaders: []
     }
-
-
     this.ws.SaveUpdate(this.updatedCustomer.emailAddress, this.updatedCustomer).subscribe({
       next: (data: any) => {
         if (data.status == 204) {
           //modificare
-          console.log(data.status)
-          console.log(data)
+     
           this.getCustomerDetails(this.userActive)
           this.CloseModiFyData();
           this.successMsg = true;

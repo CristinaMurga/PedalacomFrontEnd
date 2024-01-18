@@ -8,7 +8,7 @@ import { CatalogueService } from '../../shared/crudhttp/catalogue.service';
 import { ProductImage } from '../../shared/modelsdata/ProductImage';
 import { CartService } from '../../shared/crudhttp/cart.service';
 import { Cart } from '../../shared/modelsdata/Cart';
-
+import { Location } from '@angular/common';
 
 
 
@@ -41,13 +41,12 @@ export class ProductDetailsComponent {
 
   successMsg = false;
 
-  constructor(private route: ActivatedRoute, private ws: ProductDetailsService, 
-    private ws2: CatalogueService, private cart: CartService, private router: Router ) { }
+  constructor(private route: ActivatedRoute, private ws: ProductDetailsService,
+    private ws2: CatalogueService, private cart: CartService, private router: Router, private location: Location) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.productId = params['id'];
-      console.log('sono el detaglio prodotto il mio id è', this.productId);
     })
 
     this.getProductDetails(this.productId);
@@ -57,22 +56,21 @@ export class ProductDetailsComponent {
     this.ws.getProductDetails(productID).subscribe({
       next: (data: DetailedProduct) => {
         this.productDescription = data;
-        console.log(data);
-        if(data.color != null){
+        if (data.color != null) {
           this.showColor = true
           this.productColor = this.productDescription.color.toLowerCase();
         }
-        if(data.size != null || data.size == ''){
+        if (data.size != null || data.size == '') {
           this.showSize = true;
         }
-        if(data.weight != null || data.weight == ''){
+        if (data.weight != null || data.weight == '') {
           this.showWeight = true
-        } 
-      
-        if(data.description != null || data.description== ''){
+        }
+
+        if (data.description != null || data.description == '') {
           this.showDescription = true
         }
-        
+
         this.getImages(this.productDescription.productID, this.productDescription)
 
       },
@@ -87,14 +85,14 @@ export class ProductDetailsComponent {
   }
 
 
-  
+
   getImages(productId: number, prod: DetailedProduct): void {
     this.ws2.getImages(productId).subscribe({
       next: (imagesArray: any[]) => {
         if (imagesArray.length > 0) {
           const firstImage = imagesArray[0];
-          if (firstImage.thumbnailPhotoFileName === 'no_image_available_small.gif' 
-          || firstImage.thumbnailPhotoFileName === null || firstImage.thumbnailPhotoFileName ==='') {
+          if (firstImage.thumbnailPhotoFileName === 'no_image_available_small.gif'
+            || firstImage.thumbnailPhotoFileName === null || firstImage.thumbnailPhotoFileName === '') {
             prod.base64Image = this.defaultImg;
           } else {
             const base64Image = `data:image/png;base64,${firstImage.thumbNailPhoto}`;
@@ -111,11 +109,11 @@ export class ProductDetailsComponent {
   }
 
   AddCart(productId: number, name: string, price: number) {
-    if(this.username == null){
+    if (this.username == null) {
       this.router.navigate(['/log-in']);
       return
     }
- 
+
     this.prodtoCart = {
       cartID: 0,
       emailAddress: this.username,
@@ -127,14 +125,16 @@ export class ProductDetailsComponent {
     }
     this.cart.addProduct(this.prodtoCart).subscribe({
       next: (data: Cart) => {
-        this.successMsg= true;
+        this.successMsg = true;
       },
       error: (err: any) => {
-   
-    
+
       }
 
     })
   }
 
+  goBack(): void {
+    this.location.back()
+  }
 }

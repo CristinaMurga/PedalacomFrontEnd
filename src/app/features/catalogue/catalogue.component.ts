@@ -54,8 +54,6 @@ export class CatalogueComponent {
     this.ws.getCategoryParent().subscribe({
       next: (data: CategoryParent[]) => {
         this.categoryParentsList = data;
-       
-        console.log(data);
       },
       error: (err: any) => {
         console.log(err);
@@ -67,13 +65,8 @@ export class CatalogueComponent {
   getCategoryChilds(productCategoryID: number){
     this.ws.getCategoryChilds(productCategoryID).subscribe({
       next: (data: CategoryChild[]) => {
-        console.log(data);
         this.categoryChildList = data;
         this.showCategoriesChild = true;
-        console.log(this.showCategoriesChild)
-      
-        
-  
       },
       error: (err: any) => {
         console.log(err)
@@ -121,9 +114,7 @@ export class CatalogueComponent {
             const base64Image = `data:image/png;base64,${firstImage.thumbNailPhoto}`;
             prod.base64Image = base64Image;
           }
-        } else {
-          console.log('No images available');
-        }
+        } 
       },
       error: (err: any) => {
         console.error(err);

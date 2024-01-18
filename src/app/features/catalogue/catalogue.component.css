@@ -13,10 +13,11 @@
     background-color: transparent;
     border: none;
 }
-/* .categoryParentbtn:hover {
-    text-shadow: 0.2px 0.2px 0.05px white;
+
+.categoryParentbtn:hover {
+    text-shadow: 0.3px 0.2px 0.2px white;
     color: white;
-} */
+}
 
 a{
     text-decoration: none;
@@ -42,7 +43,8 @@ a{
     box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
     -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
     -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
-    border: 0.4px solid  grey;
+    
+    border: 1px solid transparent;
     font-family: 'Saira Extra Condensed', sans-serif;
     height: 100%;
     width: 100%;
@@ -70,4 +72,8 @@ h3 , h2 {
     padding-top: 20px;
     height: 60px;
     font-size: 24px;
+}
+
+.productBox:hover {
+    border: 1px solid  gray;
 }

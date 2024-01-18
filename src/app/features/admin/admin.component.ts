@@ -8,6 +8,7 @@ import { Model } from '../../shared/modelsdata/Models';
 import { LoginComponent } from '../../core/login/login.component';
 import { Customer } from '../../shared/modelsdata/Customer';
 import { Errori } from '../../shared/modelsdata/Errori';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -51,6 +52,7 @@ export class AdminComponent {
   denegatedAccess: boolean = true;
   successMsg = false;
   errorMsg = false;
+  deleteMsg= false;
 
   productID:number = 0;
   productName: string = '';
@@ -59,12 +61,12 @@ export class AdminComponent {
   errorBtn: boolean =  true;
   
 
-  constructor(private ws: AdminService) { }
+  constructor(private ws: AdminService, private router: Router) { }
 
   ngOnInit(){
-    this.VerifyAdmin();
+    
     this.getProducts();
-   
+    this.VerifyAdmin();
   }
 
   VerifyAdmin() {
@@ -99,6 +101,8 @@ export class AdminComponent {
   }
 
   liveSearch() {
+    this.deleteMsg = false;
+    this.successMsg = false;
     // Filter products based on the entered search term for the name
     this.filteredProductList = this.productList.filter(product =>
       product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -107,14 +111,11 @@ export class AdminComponent {
 
   CreateProduct(name: string, colore: string, standarCost: number, listinoPrice: number, misura: string, peso: number,
     categoryId: number, modelId: number){
-      console.log(this.productList)
       if (this.productList.some(product => product.name.toLowerCase() === name.toLowerCase())) {
-        console.log('Error: Product with the same name already exists');
+      this.sameName = true;
         return;
       }
 
-      console.log('categoria' , categoryId)
-      console.log('modello' , modelId)
       this.newProduct = {
         productId: 0,
         name: name , 
@@ -134,12 +135,14 @@ export class AdminComponent {
         rowguid: '3fa85f64-5717-4562-b3fc-2c963f66afa1',
         modifiedDate: new Date(),
       }
-      console.log(this.newProduct);
       
     this.ws.addProducts(this.newProduct).subscribe({
       next:(data: Product)=> {
         this.getProducts()
         this.CloseForms();
+        this.successMsg = true;
+        this.deleteMsg = false;
+        this.sameName = false;
       },
       error: (err: any) => {
         console.log(err);
@@ -152,10 +155,13 @@ export class AdminComponent {
     this.productID = id;
     this.product = product
     this.currentEditingProduct = {...product}
+    this.deleteMsg = false;
+    this.successMsg = false;
     this.showProducts = false;
     this.showEditForm = true;
     this.errorBtn = false;
     this.showErrorsLog= false;
+    this.sameName = false;
     console.log(this.productID)
        //Chiamo categories
        this.ws.GetCategories().subscribe({
@@ -182,11 +188,14 @@ export class AdminComponent {
   }
 
   OpenCreateFrom(){
+    this.deleteMsg = false;
     this.showCreateform = true;
     this.showProducts = false
     this.showClseBtn = true;
     this.errorBtn = false;
     this.showErrorsLog= false;
+    this.successMsg = false;
+    this.sameName = false;
 
     //Chiamo categories
     this.ws.GetCategories().subscribe({
@@ -203,7 +212,7 @@ export class AdminComponent {
     this.ws.GetModels().subscribe({
       next: (data: Model[]) => {
         this.modelOptions = data;
-        console.log(data)
+
         
       },
       error: (err: any) => {
@@ -232,6 +241,9 @@ export class AdminComponent {
     this.showErrorsLog= false;
      this.showDeleteBox = true
      this.showProducts = false; 
+     this.deleteMsg = false;
+     this.sameName = false;
+     this.successMsg = false;
 
   }
 
@@ -240,6 +252,7 @@ export class AdminComponent {
       next: (data: any) =>{
         this.getProducts()
         this.CloseForms();
+        this.deleteMsg = true;
       },
       error: (err: any) => {
         console.log(err)
@@ -250,33 +263,10 @@ export class AdminComponent {
   submitEditForm(name: string, color: string, standardCost: number, price: number, size: string, 
     weight: number, category: number, model: number) {
 
-      if(name == '' || name == null){
-        name = this.product.name
-      }
-
-      if(color == '' || color == null){
-        color = this.product.color
-      }
-
-      if(standardCost == 0 || standardCost == null){
-        standardCost = this.product.standardCost
-      }
-
-      if(price == 0 || price == null){
-        price = this.product.listPrice
-      }
-      
-      if(size == '' || size == null){
-        size = this.product.size
-      }
-      if(weight == 0 || weight == null){
-        weight = this.product.weight
-      }
-
     this.updatedProduct = {
       productId: this.productID,
       name: name,
-      productNumber: 'LH3410',
+      productNumber: 'LH3414',
       color: color,
       standardCost: standardCost,
       listPrice: price,
@@ -297,15 +287,12 @@ export class AdminComponent {
       next: (data: Product) => {
         this.getProducts()
         this.CloseForms();
+        this.successMsg = true;
+        this.deleteMsg = false;
       }, error: (err: any) => {
-        console.log('Error creating product:', err);
-        if (err.error && err.error.errors) {
-          console.log('Validation errors:', err.error.errors);
-        } else {
-          console.log('Unexpected error:', err);
-        }
+        this.errorMsg = true;
+        console.log(err)
       },
-
     })
 
   }
@@ -314,14 +301,20 @@ export class AdminComponent {
     this.ws.GetErrors().subscribe({
       next:( data: Errori[]) => {
         this.errorList = data;
+        this.deleteMsg = false;
        this.showErrorsLog = true
        this.showProducts = false
        this.errorBtn = false;
+
       },
       error: (err:any) =>{
         console.log(err)
       }
     })
+  }
+
+  goToProductDetails(id: number){
+    this.router.navigate(['/product', id])
   }
 
 }

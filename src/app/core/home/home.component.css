@@ -23,19 +23,13 @@
   
 }
 .hSlogan{
-    font-family: 'IBM Plex Sans', sans-serif ;
-    font-size: 50px;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 30px;
     position: absolute;
-    top: 100px;
-    left: 100px;
+    top: 5px;
+    left: 10px;
 }
-.shippingDiv {
-    background-color: black;
-    color: black;
-    font-family: 'IBM Plex Sans', sans-serif;
-    border-bottom: 1px solid black;
-    font-weight: 900;
-}
+
 
 a {
     text-decoration: none;
@@ -43,18 +37,85 @@ a {
 }
 .philosophyTitle{
     font-family: 'Saira Extra Condensed', sans-serif;
-    font-size: 34px;
+    font-size: 25px;
     font-weight: 500;
     color: #FF9238;
 }
 .philosophyText {
     font-family: 'Saira Extra Condensed', sans-serif;
-    font-size: 20px;
+    font-size: 14px;
     text-align: justify;
     padding: 12px;
-  
 }
 .philosophyImg{
     width: 100%;
   
+}
+
+@media only screen and (min-width: 380px) 
+{
+    .hSlogan{
+        font-size: 32px;
+        top: 20px;
+        left: 45px;
+    }
+
+}
+
+
+@media only screen and (min-width: 500px) 
+{
+    .hSlogan{
+        font-size: 36px;
+        top: 30px;
+        left: 80px;
+    }
+    .philosophyTitle{
+        font-size: 27px;
+    }
+    .philosophyText {
+        font-size: 16px;
+
+    }
+}
+
+@media only screen and (min-width: 650px) 
+{
+    .hSlogan{
+        font-size: 40px;
+        top: 40px;
+        left: 110px;
+    }
+}
+
+@media only screen and (min-width: 800px) 
+{
+    .hSlogan{
+        font-size: 50px;
+        top: 60px;
+        left: 140px;
+    }
+    .philosophyTitle{
+        font-size: 30px;
+    }
+    .philosophyText {
+        font-size: 19px;
+
+    }
+}
+
+@media only screen and (min-width: 1000px) 
+{
+    .hSlogan{
+        font-size: 70px;
+    }
+    .philosophyText {
+        font-size: 19px;
+        margin-bottom: 60px;
+
+    }
+
+    .philosophyTitle{
+        margin-bottom: 50px;
+    }
 }

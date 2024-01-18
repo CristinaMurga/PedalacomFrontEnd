@@ -3,14 +3,19 @@
          <div *ngIf="items" class="col-10 mx-auto">
             <h2>Your cart</h2>
 
-            <table class="table">
+            <table class="table ">
            
                 <tbody>
                   <tr *ngFor="let item of cartList">
-                    <td >{{item.name}} </td>
-                    <td>${{item.listPrice}} USD</td>
+                    <td ><button class="prod" (click)="goToProductDetails(item.productID)">{{item.name}}</button></td>
+                    <td class="prod" >${{item.listPrice}} USD</td>
                     <td><button  (click)="deleteItem(item.cartID)"><i class="bi bi-trash3"></i></button></td>
                   </tr>
+                  <tr>
+                    <td class="total">Total amount</td>
+                    <td class="total">${{total.toFixed(2)}} USD</td>
+                    <td> </td>
+                   </tr>
                  
                 </tbody>
               </table>

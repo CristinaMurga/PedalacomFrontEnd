@@ -18,3 +18,18 @@ a{
     font-size: 20px;
     color:white
 }
+
+@media only screen and (min-width: 280px) 
+{
+  p{
+    font-size: 15px;
+  }
+}
+
+@media only screen and (min-width: 500px) 
+{
+    p{
+        font-size: 17px;
+    }
+}
+

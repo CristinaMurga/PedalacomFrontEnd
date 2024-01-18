@@ -45,3 +45,33 @@ p{
     font-size: 19px;
     margin: 10px
 }
+
+.formMessage {
+    padding-top: 30px;
+    font-weight: 600;
+    color: #39A7FF;
+    font-size: 20px;
+}
+.prod {
+    color: black;
+    font-family: 'Saira Extra Condensed', sans-serif;
+    border-bottom: 1px solid transparent;
+}
+
+.prod:hover {
+    font-weight: 500;
+}
+.menu{
+    border-bottom: white solid 2px;
+}
+
+.formBox{
+    padding: 20px;
+    box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -webkit-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+    -moz-box-shadow: 2px 2px 12px -1px rgba(0,0,0,0.58);
+}
+
+.menu:hover {
+    border-bottom: #FF9238 solid 2px;
+}

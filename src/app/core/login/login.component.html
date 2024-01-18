@@ -9,6 +9,8 @@
                                 routerLinkActive="true">Register now</a></p>
                     </div>
                 </div>
+
+                <!-- form del login -->
                 <div class="row">
                     <div class="col-12 col-md-10 mx-auto mt-2">
                         <label for="username">Username</label>
@@ -22,6 +24,8 @@
                         <input class="form-control" type="password" id="pwd" #pwd>
                     </div>
                 </div>
+
+                <!-- Messaggi di errore e successo del form -->
 
                 <div *ngIf="showMandatoryErr">
                     <p class="errMessage text-center">*Some fields are mandatory</p>
@@ -43,19 +47,16 @@
                     </div>
                 </div>
 
-            
+
             </div>
         </div>
         <div class="col-12 col-lg-6 picture">
             <img class="img-fluid" src="../../../assets/media/loginBike.jpg" alt="loginPicture">
         </div>
     </div>
-
-
-
-
 </div>
 
+<!-- Richiesta aggiornamento password per gli utenti old -->
 <div *ngIf="isItOld" class="container boxcontainer">
     <div class="row">
 
@@ -63,11 +64,14 @@
 
             <div class="d-flex  justify-content-between">
                 <h5>It is necessary to update the password</h5>
-                <button class="closeBtn text-end"  (click)="closeupdatepwd()">
+                <button class="closeBtn text-end" (click)="closeupdatepwd()">
                     <i class="bi bi-x-lg"></i>
                 </button>
 
             </div>
+
+
+            <!-- Messaggi di errore e successo del form -->
             <div *ngIf="noUpdated">
                 <p class="errMessage text-center">Impossible to update the password. Try again</p>
             </div>
@@ -88,20 +92,13 @@
                 <p class="errMessage text-center">Passwords don't match</p>
             </div>
 
-
-
-
-
             <div class="row">
                 <div class="class=col-12 col-md-10 mx-auto mt-3 text-end">
-                    <button class="btn btn_login rounded-0" 
-                    (click)="UpdateCustomer(pwd.value, chckPsw.value)">Update Password</button>
+                    <button class="btn btn_login rounded-0" (click)="UpdateCustomer(pwd.value, chckPsw.value)">Update
+                        Password</button>
                 </div>
 
             </div>
-
-
-
 
         </div>
     </div>

@@ -3,9 +3,15 @@
     <div class="col-10 mx-auto">
 
       <div class="d-flex justify-content-between">
-        <h3 class="mb-4">ADMIN DASHBOARD</h3>
-        <button *ngIf="errorBtn" (click)="getErrors()">Errors Log</button>
+        <h3>ADMIN DASHBOARD</h3>
+        <button *ngIf="errorBtn" class="menu" (click)="getErrors()">Errors Log</button>
       </div>
+
+      <p *ngIf="successMsg" class="formMessage"><i class="bi bi-check"></i>Data has been successfully
+        saved</p>
+      <p *ngIf="deleteMsg" class="formMessage"><i class="bi bi-check"></i>Product has been successfully
+       deleted
+      </p>
 
 
       <!-- SHOW PRODUCTS -->
@@ -35,7 +41,7 @@
           <tbody>
             <tr *ngFor="let product of filteredProductList">
               <td>{{product.productId}}</td>
-              <td>{{product.name}}</td>
+              <td><button class="prod" (click)="goToProductDetails(product.productId)">{{product.name}}</button></td>
               <td>{{product.color}}</td>
               <td>{{product.listPrice}}</td>
               <td> <button (click)="OpenEditForm(product.productId, product)"><i class="bi bi-pencil"></i></button></td>
@@ -51,7 +57,7 @@
 
       <div *ngIf="showCreateform" class="container">
 
-        <div class="row">
+        <div class="row formBox">
           <div class="d-flex justify-content-between">
             <h3>Add new Product</h3>
             <button (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
@@ -61,7 +67,7 @@
           <div class="col-12 col-md-8">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" #name required>
-            <p *ngIf="sameName">Name already exist!</p>
+        
           </div>
           <div class="col-12 col-md-4">
             <label for="color">Color</label>
@@ -97,9 +103,12 @@
               <option *ngFor="let option of modelOptions" [value]="option.productModelId">{{ option.name }}</option>
             </select>
           </div>
-          <div class=" col-12 col-md-6">
+          <div class=" col-12 col-md-6 d-flex justify-content-between">
             <button (click)="CreateProduct(name.value,color.value, stdCost.valueAsNumber, price.valueAsNumber , 
             size.value, weight.valueAsNumber,+category.value, +model.value)" class="btn deleteBtns">Create</button>
+                <p *ngIf="sameName" class="formMessage">Product name already exist!</p>
+                <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>Data has not been saved. Try again
+                </p>
           </div>
 
 
@@ -114,7 +123,7 @@
 
       <div *ngIf="showEditForm" class="container">
 
-        <div class="row">
+        <div class="row formBox">
           <div class="d-flex justify-content-between">
             <h3>Edit product</h3>
             <button (click)="CloseForms()"><i class="bi bi-x-lg"></i></button>
@@ -124,11 +133,11 @@
           <div class="col-12 col-md-8">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" #name [value]="currentEditingProduct?.name" required>
-            <p *ngIf="sameName">Name already exist!</p>
+           
           </div>
           <div class="col-12 col-md-4">
             <label for="color">Color</label>
-            <input type="text" class="form-control" id="color"  #color  [value]="currentEditingProduct?.color" required>
+            <input type="text" class="form-control" id="color"  #color  [value]="currentEditingProduct?.color" >
           </div>
           <div class="col-12 col-md-3">
             <label for="standardCost">Standar Cost</label>
@@ -162,9 +171,12 @@
               <option *ngFor="let option of modelOptions" [value]="option.productModelId">{{ option.name }}</option>
             </select>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 d-flex justify-content-between">
             <button (click)="submitEditForm(name.value,color.value, stdCost.valueAsNumber, price.valueAsNumber , 
             size.value, weight.valueAsNumber,+category.value, +model.value)" class="btn deleteBtns ">Save</button>
+             <p *ngIf="sameName" class="formMessage">Name already exist!</p>
+            <p *ngIf="errorMsg" class="formMessage"><i class="bi bi-x-lg"></i>Data has not been saved. Try again
+            </p>
           </div>
         </div>
       </div>
@@ -204,12 +216,12 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">ErrorID</th>
+              <th scope="col">Error ID</th>
               <th scope="col">Class Name</th>
-              <th scope="col">erroreMessaggio</th>
-              <th scope="col">tipologiaErrore</th>
-              <th scope="col">codiceErrore</th>
-              <th scope="col">dataErrore</th>
+              <th scope="col">Message</th>
+              <th scope="col">Type</th>
+              <th scope="col">Code</th>
+              <th scope="col">Date</th>
             </tr>
           </thead>
           <tbody>

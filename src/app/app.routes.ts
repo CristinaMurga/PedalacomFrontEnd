@@ -7,6 +7,7 @@ import { ProductDetailsComponent } from './features/product-details/product-deta
 import { CustomersAreaComponent } from './features/customers-area/customers-area.component';   
 import { AdminComponent } from './features/admin/admin.component'; 
 import { CartComponent } from './features/cart/cart.component';
+
  
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},

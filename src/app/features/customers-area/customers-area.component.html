@@ -1,5 +1,4 @@
 <div *ngIf="access">
-
     <div class=" py-2 container-fluid d-flex justify-content-around flex-wrap menu ">
         <button class="menubtn" (click)="OpenPersonalInfoBox()">Personal Information</button>
         <button class="menubtn" (click)="GetCustomerAddress(addressID)">Address </button>
@@ -18,7 +17,7 @@
                     <div class="col-12 col-md-10 px-md-5 p-lg-5">
     
                         <h3>Personal Information <button (click)="OpenModifyData()"><i
-                                    class="bi bi-pencil-fill edit"></i></button> </h3>
+                        class="bi bi-pencil-fill edit"></i></button> </h3>
     
     
                         <p class="mt-2 m-0">Name: {{user.firstName}} </p>
@@ -140,9 +139,8 @@
                 <div class="row">
                     <div class="col-12 mt-3 text-end">
                         <button type="button" class="submitBtn h-100"
-                            (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value,chppwd.value)">Change
-                            password
-                        </button>
+                            (click)="UpdateCustomer(name.value, lastName.value, phone.value, pwd.value,
+                            chppwd.value)">Save</button>
                     </div>
                 </div>
             </div>
@@ -186,7 +184,7 @@
             </div>
         </div> -->
     
-        <div *ngIf="showOrders">
+        <!-- <div *ngIf="showOrders">
     
             <p>ORDER NUMBER: {{orderSalesID}}</p>
     
@@ -195,7 +193,7 @@
                     order Qty :{{order.orderQty}} - Product ID{{order.productId}}
                     - unitPrice {{order.unitPrice}}</li>
             </ul>
-        </div>
+        </div> -->
 
 </div>
 <div *ngIf="denegatedAccess" class="container">
